@@ -1,24 +1,18 @@
 package sortingAlgorithm;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
-public class SelectionSortingExample1 {
+public class SelectionSortingExample2 {
     public ArrayList<Integer> sort(ArrayList<Integer> dataList) {
-        boolean swap = false;
-        for(int i=0; i<dataList.size()-1; i++) {
-            int minValue = dataList.get(i);
-            for(int j=i; j<dataList.size()-1; j++) {
-                if(minValue > dataList.get(j + 1)) {
-                    int pivot = minValue;
-                    minValue = dataList.get(j + 1);
-                    dataList.set(j + 1, pivot);
-                    swap = true;
+        for(int stand=0; stand<dataList.size(); stand++) {
+            int lowest = stand;
+            for(int index = stand + 1; index<dataList.size(); index++) {
+                if(dataList.get(lowest) > dataList.get(index)) {
+                    lowest = index;
                 }
             }
-            dataList.set(i, minValue);
-            if(swap == false) {
-                break;
-            }
+            Collections.swap(dataList, lowest, stand);
         }
         return dataList;
     }
