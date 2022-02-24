@@ -2,7 +2,7 @@ package sortingAlgorithm;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
+// 할 필요 없는 초반 과정까지 포함해버림
 public class InsertionSortingExample1 {
     public ArrayList<Integer> sort(ArrayList<Integer> dataList) {
         for(int i=0; i<dataList.size(); i++) {
