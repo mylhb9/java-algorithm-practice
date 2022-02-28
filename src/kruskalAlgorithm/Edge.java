@@ -8,7 +8,7 @@ public class Edge implements Comparable<Edge>{
     public String nodeU;
     public String nodeV;
 
-    public Edge(int weight, String nodeU, String nodeV) {
+    public Edge(int weight, String nodeV, String nodeU) {
         this.weight = weight;
         this.nodeU = nodeU;
         this.nodeV = nodeV;

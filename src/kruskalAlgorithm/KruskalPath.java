@@ -51,7 +51,7 @@ public class KruskalPath {
 
         for(int i=0; i<edges.size(); i++) {
             currentEdge = edges.get(i);
-            if(this.find(currentEdge.nodeU) != this.find(currentEdge.nodeV)) {
+            if(this.find(currentEdge.nodeV) != this.find(currentEdge.nodeU)) {
                 this.union(currentEdge.nodeV, currentEdge.nodeU);
                 mst.add(currentEdge);
             }
