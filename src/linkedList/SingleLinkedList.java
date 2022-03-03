@@ -36,12 +36,16 @@ public class SingleLinkedList<T> {
     }
 
     public static void main(String[] args) {
-        SingleLinkedList<Integer> myLinkedList = new SingleLinkedList<>();
-        myLinkedList.addNode(1);
-        myLinkedList.addNode(2);
-        myLinkedList.addNode(3);
+        SingleLinkedList<Integer> MyLinkedList = new SingleLinkedList<>();
 
-        myLinkedList.printAll();
+        MyLinkedList.addNode(1);
+        MyLinkedList.addNode(2);
+        MyLinkedList.addNode(3);
+        MyLinkedList.addNode(4);
+        MyLinkedList.addNode(5);
+
+        MyLinkedList.delNode(3);
+        MyLinkedList.printAll();
     }
 
     public Node<T> search(T data) {
@@ -70,4 +74,27 @@ public class SingleLinkedList<T> {
             searchedNode.next.next = nextNode;
         }
     }
+
+    public boolean delNode(T isData) {
+        if(this.head == null) {
+            return false;
+        } else {
+            Node<T> node = this.head;
+            if(node.data == isData) {
+                this.head = this.head.next;
+                return true;
+            } else {
+                while(node.next != null) {
+                    if(node.next.data == isData) {
+                        node.next = node.next.next;
+                        return true;
+                    }
+                    node = node.next;
+                }
+            }
+            return false;
+        }
+    }
+
+
 }
