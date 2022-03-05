@@ -11,14 +11,18 @@ public class BFSSearch {
 
         needVisit.add(startNode);
 
-        while(needVisit.size() > 0) {
-            String node = needVisit.remove(0);
 
+
+        while(needVisit.size() > 0) {
+
+            String node = needVisit.remove(0);
             if(!visited.contains(node)) {
                 visited.add(node);
                 needVisit.addAll(graph.get(node));
             }
         }
+
+
         return visited;
     }
 
