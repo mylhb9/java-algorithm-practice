@@ -5,14 +5,12 @@ import java.util.Collections;
 
 public class BinarySearch {
     public boolean searchFunc(ArrayList<Integer> dataList, Integer searchItem) {
-        if(dataList.size() == 1 && searchItem == dataList.get(0)) {
+        if(dataList.size() == 1 && dataList.get(0) == searchItem) {
             return true;
         }
-
-        if(dataList.size() == 1 && searchItem != dataList.get(0)) {
+        if(dataList.size() == 1 && dataList.get(0) != searchItem) {
             return false;
         }
-
         if(dataList.size() == 0) {
             return false;
         }
@@ -23,6 +21,7 @@ public class BinarySearch {
         } else {
             return this.searchFunc(new ArrayList<>(dataList.subList(medium, dataList.size())), searchItem);
         }
+
     }
 
     public static void main(String[] args) {
