@@ -8,7 +8,7 @@ public class SelectionSort {
         int lowest = 0;
         for(int i=0; i<dataList.size(); i++) {
             lowest = i;
-            for(int j=i; j<dataList.size(); j++) {
+            for(int j=i+1; j<dataList.size(); j++) {
                 if(dataList.get(j) < dataList.get(lowest)) {
                     lowest = j;
                 }
