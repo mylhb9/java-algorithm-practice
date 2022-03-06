@@ -7,47 +7,44 @@ import java.util.HashMap;
 
 public class DijkstraPath {
     public HashMap<String, Integer> dijkstraFunc(HashMap<String, ArrayList<Edge>> graph, String start) {
-        Edge edgeNode, adjacentNode;
-        int currentDistance, weight, distance;
-        String currentNode, adjacent;
-        ArrayList<Edge> nodeList;
+        Edge edge, adjacentEdge;
+        int currentDistance, adjacentDistance, distance;
+        String currentVertex, adjacentVertex;
+        ArrayList<Edge> edgeList = new ArrayList<>();
 
         HashMap<String, Integer> distances = new HashMap<>();
-        for (String key : graph.keySet()) {
+        for(String key : graph.keySet()) {
             distances.put(key, Integer.MAX_VALUE);
         }
         distances.put(start, 0);
 
         PriorityQueue<Edge> priorityQueue = new PriorityQueue<>();
-        priorityQueue.add(new Edge(distances.get(start), start));
-
+        priorityQueue.offer(new Edge(distances.get(start), start));
 
         while(priorityQueue.size() > 0) {
-            edgeNode = priorityQueue.poll();
-            currentDistance = edgeNode.distance;
-            currentNode = edgeNode.vertex;
+            edge = priorityQueue.poll();
+            currentDistance = edge.distance;
+            currentVertex = edge.vertex;
 
-            // 최소 경로 distances 에 들어 있는 값이 현재 edge 에서 나온 currentDistance 값 보다 작다면 넘김
-            // 무시해버리기
-
-            if(distances.get(currentNode) < currentDistance) {
+            if(distances.get(currentVertex) < currentDistance) {
                 continue;
             }
-            nodeList = graph.get(currentNode);
-            for(int i=0; i<nodeList.size(); i++) {
-                adjacentNode = nodeList.get(i);
-                adjacent = adjacentNode.vertex;
-                weight = adjacentNode.distance;
-                distance = currentDistance + weight;
 
-                if(distance < distances.get(adjacent)) {
-                    distances.put(adjacent, distance);
-                    priorityQueue.add(new Edge(distance, adjacent));
+            edgeList = graph.get(currentVertex);
+            for(int i=0; i<edgeList.size(); i++) {
+                adjacentEdge = edgeList.get(i);
+                adjacentVertex = adjacentEdge.vertex;
+                adjacentDistance = adjacentEdge.distance;
+                distance = adjacentDistance + currentDistance;
+
+                if(distance < distances.get(adjacentVertex)) {
+                    distances.put(adjacentVertex, distance);
+                    priorityQueue.offer(new Edge(distance, adjacentVertex));
                 }
             }
 
-        }
 
+        }
         return distances;
     }
 

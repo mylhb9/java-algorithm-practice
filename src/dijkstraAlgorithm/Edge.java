@@ -10,12 +10,12 @@ public class Edge implements Comparable<Edge>{
     }
 
     @Override
-    public String toString() {
-        return "vertex: " + this.vertex + ", distance: " + this.distance;
+    public int compareTo(Edge o) {
+        return this.distance - o.distance;
     }
 
     @Override
-    public int compareTo(Edge edge) {
-        return this.distance - edge.distance;
+    public String toString() {
+        return "vertex: " + this.vertex + ", distance: " + this.distance;
     }
 }
