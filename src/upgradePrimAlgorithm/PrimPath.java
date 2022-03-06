@@ -7,12 +7,11 @@ import java.util.PriorityQueue;
 public class PrimPath {
     public ArrayList<Path> improvedPrimFunc(HashMap<String, HashMap<String, Integer>> graph, String startNode) {
         ArrayList<Path> mst = new ArrayList<>();
-        PriorityQueue<Edge> keys = new PriorityQueue<>();
-        HashMap<String, Edge> keysObjects = new HashMap<>();
+        PriorityQueue<Edge> keys = new PriorityQueue();
+        HashMap<String, Edge> keyObjects = new HashMap<>();
         HashMap<String, String> mstPath = new HashMap<>();
-        Integer totalWeight = 0;
-        HashMap<String, Integer> linkedEdges;
-        Edge edgeObject, poppedEdge, linkedEdge;
+        Edge edgeObject, poppedEdge, linekdEdge;
+        HashMap<String ,Integer> linkedEdges;
 
         for(String key : graph.keySet()) {
             if(key == startNode) {
@@ -22,33 +21,29 @@ public class PrimPath {
                 edgeObject = new Edge(key, Integer.MAX_VALUE);
                 mstPath.put(key, null);
             }
-            keys.add(edgeObject);
-            keysObjects.put(key, edgeObject);
+            keys.offer(edgeObject);
+            keyObjects.put(key, edgeObject);
         }
-        // keys 에 한 번 들어갔던 것이 다시 들어가지는 않아서 괜찮다.
+
         while(keys.size() > 0) {
             poppedEdge = keys.poll();
-            keysObjects.remove(poppedEdge.node);
+            keyObjects.remove(poppedEdge.node);
 
             mst.add(new Path(mstPath.get(poppedEdge.node), poppedEdge.node, poppedEdge.weight));
-            totalWeight += poppedEdge.weight;
 
             linkedEdges = graph.get(poppedEdge.node);
             for(String adjacent : linkedEdges.keySet()) {
-                if(keysObjects.containsKey(adjacent)) {
-                    linkedEdge = keysObjects.get(adjacent);
-
-                    if(linkedEdges.get(adjacent) < linkedEdge.weight) {
-                        linkedEdge.weight = linkedEdges.get(adjacent);
+                if(keyObjects.containsKey(adjacent)) {
+                    linekdEdge = keyObjects.get(adjacent);
+                    if(linkedEdges.get(adjacent) < linekdEdge.weight) {
+                        linekdEdge.weight = linkedEdges.get(adjacent);
                         mstPath.put(adjacent, poppedEdge.node);
-                        // linkedEdge 를 업데이트 해줬으므로 최소 힙의 맨 위로 올라오게 해야해서 삭제하고 다시 대입 (최소 힙을 유지시키기 위해서)
-                        keys.remove(linkedEdge);
-                        keys.add(linkedEdge);
+                        keys.remove(linekdEdge);
+                        keys.add(linekdEdge);
                     }
                 }
             }
         }
-        System.out.println(totalWeight);
         return mst;
     }
 
