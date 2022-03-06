@@ -14,6 +14,7 @@ public class Edge implements Comparable<Edge>{
         this.nodeV = nodeV;
     }
 
+    @Override
     public String toString() {
         return "(" + this.weight + ", " + this.nodeV + ", " + this.nodeU + ")";
     }

@@ -10,49 +10,51 @@ public class KruskalPath {
     HashMap<String, Integer> rank = new HashMap<>();
 
     public String find(String node) {
-        // path compression 기법
-        if(this.parent.get(node) != node) {
-            this.parent.put(node, this.find(this.parent.get(node)));
+        if(parent.get(node) != node) {
+            parent.put(node, find(parent.get(node)));
         }
-        return this.parent.get(node);
+        return parent.get(node);
     }
 
     public void union(String nodeV, String nodeU) {
-        String root1 = this.find(nodeV);
-        String root2 = this.find(nodeU);
+        String root1 = find(nodeV);
+        System.out.println("root1: " + root1);
+        String root2 = find(nodeU);
+        System.out.println("root2: " + root2);
 
         // union-by-rank 기법
-        if(this.rank.get(root1) > this.rank.get(root2)) {
-            this.parent.put(root2, root1);
+        if(rank.get(root1) > rank.get(root2)) {
+            parent.put(root2, root1);
         } else {
-            this.parent.put(root1, root2);
-            if(this.rank.get(root1) == this.rank.get(root2)) {
-                this.rank.put(root2, this.rank.get(root2) + 1);
+            parent.put(root1, root2);
+            if(rank.get(root1) == rank.get(root2)) {
+                rank.put(root2, rank.get(root2) + 1);
             }
         }
     }
 
     public void makeSet(String node) {
-        this.parent.put(node, node);
-        this.rank.put(node, 0);
+        parent.put(node, node);
+        rank.put(node, 0);
     }
 
-    public ArrayList<Edge> kruskalFunc(ArrayList<String> vertices, ArrayList<Edge> edges) {
+    public ArrayList<Edge> kruskalFunc(ArrayList<String> nodes, ArrayList<Edge> edges) {
         ArrayList<Edge> mst = new ArrayList<>();
         Edge currentEdge;
 
         // 1. 초기화
-        for(int i=0; i<vertices.size(); i++) {
-            this.makeSet(vertices.get(i));
+        for(int i=0; i< nodes.size(); i++) {
+            this.makeSet(nodes.get(i));
         }
 
-        // 2. 간선 weight 기반 sorting
+        // 2. Edge 의 weight 기반으로 sorting
         Collections.sort(edges);
-
+        System.out.println(edges);
+        // 3. nodeV 와 nodeU 의 루트노드가 다르면 서로 연결
         for(int i=0; i<edges.size(); i++) {
             currentEdge = edges.get(i);
-            if(this.find(currentEdge.nodeV) != this.find(currentEdge.nodeU)) {
-                this.union(currentEdge.nodeV, currentEdge.nodeU);
+            if(find(currentEdge.nodeV) != find(currentEdge.nodeU)) {
+                union(currentEdge.nodeV, currentEdge.nodeU);
                 mst.add(currentEdge);
             }
         }
@@ -60,7 +62,7 @@ public class KruskalPath {
     }
 
     public static void main(String[] args) {
-        ArrayList<String> vetices = new ArrayList<>(Arrays.asList("A", "B", "C", "D", "E", "F", "G"));
+        ArrayList<String> nodes = new ArrayList<>(Arrays.asList("A", "B", "C", "D", "E", "F", "G"));
         ArrayList<Edge> edges = new ArrayList<>();
         edges.add(new Edge(7, "A", "B"));
         edges.add(new Edge(5, "A", "D"));
@@ -87,7 +89,9 @@ public class KruskalPath {
 
 
         KruskalPath kObject = new KruskalPath();
-        System.out.println(kObject.kruskalFunc(vetices, edges));
+
+        System.out.println(kObject.kruskalFunc(nodes, edges));
+        System.out.println(kObject.parent);
 
     }
 }
