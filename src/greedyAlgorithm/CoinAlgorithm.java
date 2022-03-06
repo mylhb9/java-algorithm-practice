@@ -11,7 +11,7 @@ public class CoinAlgorithm {
         for(int i=0; i<coinList.size(); i++) {
             coinNum = price / coinList.get(i);
             totalCoinCount += coinNum;
-            price -= coinList.get(i) * coinNum;
+            price -= coinNum * coinList.get(i);
             details.add(coinNum);
             System.out.println(coinList.get(i) + "원: " + coinNum + "개");
         }
