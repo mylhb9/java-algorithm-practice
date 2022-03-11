@@ -1,7 +1,5 @@
 package simpleBruteForce;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class MaxOfArr {
@@ -19,41 +17,19 @@ public class MaxOfArr {
         }
 
         int max = 0;
-        List<Integer> indexI = new ArrayList<>();
-        List<Integer> indexJ = new ArrayList<>();
+        int x = 0;
+        int y = 0;
         for(int i=0; i<9; i++) {
             for(int j=0; j<9; j++) {
-                if(max < intArr[i][j]) {
+                if(intArr[i][j] > max) {
                     max = intArr[i][j];
+                    x = i+1;
+                    y = j+1;
                 }
             }
         }
-
-        for(int i=0; i<9; i++) {
-            for(int j=0; j<9; j++) {
-                if(intArr[i][j] == max) {
-                    indexI.add(i+1);
-                    indexJ.add(j+1);
-                }
-            }
-        }
-
-        int min = 100;
-        int minIndex = 0;
-        for(int i=0; i<indexJ.size(); i++) {
-            if(indexJ.get(i) < min) {
-                min = indexJ.get(i);
-            }
-        }
-        for(int i=0; i<indexJ.size(); i++) {
-            if(indexJ.get(i)==min) {
-                minIndex = i;
-            }
-        }
-
 
         System.out.println(max);
-        System.out.println(indexI.get(minIndex) + " " + min);
-
+        System.out.println(x+ " " + y);
     }
 }

@@ -46,7 +46,7 @@ public class ColorPaper {
                 }
             }
         }
-
+        // 색종이 넓이 계산하기
         for(int p=0; p<N; p++) {
             for(int i=intArray[p][0]; i<intArray[p][0]+intArray[p][2]; i++) {
                 for(int j=intArray[p][1]; j<intArray[p][1]+intArray[p][3]; j++){
