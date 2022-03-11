@@ -13,51 +13,73 @@ public class Tetris {
 
         String[][] strArray = new String[row][col];
         Integer[][] intArray = new Integer[row][col];
-        for(int i=0; i<row; i++) {
+        for (int i = 0; i < row; i++) {
             strArray[i] = sc.nextLine().split(" ");
         }
 
 
-        for(int i=0; i<row; i++) {
-            for(int j=0; j<col; j++) {
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
                 intArray[i][j] = Integer.parseInt(strArray[i][j]);
             }
         }
 
-        List<Integer> rowList = new ArrayList<>();
-        List<Integer> maxList = new ArrayList<>();
+        Integer[] first1s = new Integer[col];
         for(int j=0; j<col; j++) {
             for(int i=0; i<row; i++) {
                 if(intArray[i][j] == 1) {
-                    rowList.add(i);
+                    first1s[j] = i;
                     break;
                 }
             }
+            if(first1s[j] == null) {
+                first1s[j] = row;
+            }
+        }
 
-            if(rowList.get(j) >= 4) {
-                for(int k=1; k<=4; k++) {
-                    intArray[j][rowList.get(j) - k] = 1;
-                }
-                int count = 0;
-                for(int p=0; p<row; p++) {
-                    for(int q=0; q<col; q++) {
-                        if(intArray[p][q] >= col) {
-                            count++;
-                            maxList.add(count);
-                        }
+
+
+
+        List<Integer> possibleCol = new ArrayList<>();
+
+        for(int i=0; i<col; i++) {
+            if(first1s[i] >= 4) {
+                possibleCol.add(i);
+            }
+        }
+
+        List<Integer> countList  = new ArrayList<>();
+
+        for(int i=0; i<possibleCol.size(); i++) {
+            int N = possibleCol.get(i);
+            for(int j=first1s[possibleCol.get(i)]-4; j<first1s[possibleCol.get(i)]; j++) {
+                intArray[j][N] = 1;
+            }
+            int count = 0;
+            for(int a=0; a<row; a++) {
+                int sum = 0;
+
+                for(int b=0; b<col; b++) {
+                    sum += intArray[a][b];
+                    if(sum == col) {
+                        count++;
+
                     }
                 }
             }
-
+            countList.add(count);
+            for(int j=row-4; j<row; j++) {
+                intArray[j][N] = 0;
+            }
         }
-
-        for(int i=0; i<rowList.size(); i++) {
-            System.out.println(rowList.get(i));
+        int value = 0;
+        int index = 0;
+        for(int i=0; i<countList.size(); i++) {
+            if(value < countList.get(i)) {
+                value = countList.get(i);
+                index = i;
+            }
         }
-
-        for(int i=0; i<maxList.size(); i++) {
-            System.out.println(maxList.get(i));
-        }
-
+        System.out.println(possibleCol.get(index) + 1 + " " + value);
     }
 }
