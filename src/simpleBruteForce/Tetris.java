@@ -1,5 +1,7 @@
 package simpleBruteForce;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Tetris {
@@ -22,30 +24,40 @@ public class Tetris {
             }
         }
 
-        int selectedCol = 0;
+        List<Integer> rowList = new ArrayList<>();
+        List<Integer> maxList = new ArrayList<>();
         for(int j=0; j<col; j++) {
-            int sum = 0;
-            int check = 0;
             for(int i=0; i<row; i++) {
-                sum += intArray[i][j];
-                if(sum == 0) {
-                    check++;
-                }
-                if(check >= row) {
-                    selectedCol = j;
+                if(intArray[i][j] == 1) {
+                    rowList.add(i);
+                    break;
                 }
             }
-        }
-        int count = 0;
-        for(int i=0; i<row; i++) {
-            int sum = 0;
-            for(int j=0; j<col; j++) {
-                sum += intArray[i][j];
-                if(sum == col - 1 && intArray[i][selectedCol] == 0) {
-                    count++;
+
+            if(rowList.get(j) >= 4) {
+                for(int k=1; k<=4; k++) {
+                    intArray[j][rowList.get(j) - k] = 1;
+                }
+                int count = 0;
+                for(int p=0; p<row; p++) {
+                    for(int q=0; q<col; q++) {
+                        if(intArray[p][q] >= col) {
+                            count++;
+                            maxList.add(count);
+                        }
+                    }
                 }
             }
+
         }
-        System.out.println(selectedCol+1 + " " + count);
+
+        for(int i=0; i<rowList.size(); i++) {
+            System.out.println(rowList.get(i));
+        }
+
+        for(int i=0; i<maxList.size(); i++) {
+            System.out.println(maxList.get(i));
+        }
+
     }
 }
