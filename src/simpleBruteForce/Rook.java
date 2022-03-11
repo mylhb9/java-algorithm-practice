@@ -1,8 +1,6 @@
 package simpleBruteForce;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Rook {
     public static void main(String[] args) {
@@ -20,81 +18,111 @@ public class Rook {
             }
         }
 
-        int indexKingI = 0;
-        int indexKingJ = 0;
-        List<Integer> indexOtherI = new ArrayList<>();
-        List<Integer> indexOtherJ = new ArrayList<>();
-        List<Integer> indexObstacleI = new ArrayList<>();
-        List<Integer> indexObstacleJ = new ArrayList<>();
+        int kingX = 0;
+        int kingY = 0;
+        List<Integer> rockPositionsX = new ArrayList<>();
+        List<Integer> rockPositionsY = new ArrayList<>();
+        List<Integer> obstaclePositionsX = new ArrayList<>();
+        List<Integer> obstaclePositionsY = new ArrayList<>();
 
 
         for(int i=0; i<8; i++) {
             for(int j=0; j<8; j++) {
                 if(intArray[i][j] == 1) {
-                    indexKingI = i;
-                    indexKingJ = j;
+                    kingX = i;
+                    kingY = j;
                 }
+
                 if(intArray[i][j] == 2) {
-                    indexOtherI.add(i);
-                    indexOtherJ.add(j);
+                    rockPositionsX.add(i);
+                    rockPositionsY.add(j);
                 }
+
                 if(intArray[i][j] == 3) {
-                    indexObstacleI.add(i);
-                    indexObstacleJ.add(j);
+                    obstaclePositionsX.add(i);
+                    obstaclePositionsY.add(j);
                 }
             }
         }
 
+        for(int j=rockPositionsY.get(0); j<8; j++) {
+            if(intArray[rockPositionsX.get(0)][j] == 3 || intArray[rockPositionsX.get(0)][j] == 2) {
+                System.out.println(0);
+                break;
+            }
+            if(intArray[rockPositionsX.get(0)][j] == 1) {
+                System.out.println(1);
+            }
+        }
 
+        for(int j=rockPositionsY.get(0); j>0; j--) {
+            if(intArray[rockPositionsX.get(0)][j] == 3 || intArray[rockPositionsX.get(0)][j] == 2) {
+                System.out.println(0);
+                break;
+            }
+            if(intArray[rockPositionsX.get(0)][j] == 1) {
+                System.out.println(1);
+            }
+        }
+        for(int i=rockPositionsX.get(0); i<8; i++) {
+            if(intArray[rockPositionsY.get(0)][i] == 3 || intArray[rockPositionsY.get(0)][i] == 2) {
+                System.out.println(0);
+                break;
+            }
+            if(intArray[rockPositionsY.get(0)][i] == 1) {
+                System.out.println(1);
+            }
+        }
+        for(int i=rockPositionsX.get(0); i>0; i--) {
+            if(intArray[rockPositionsY.get(0)][i] == 3 || intArray[rockPositionsY.get(0)][i] == 2) {
+                System.out.println(0);
+                break;
+            }
+            if(intArray[rockPositionsY.get(0)][i] == 1) {
+                System.out.println(1);
+            }
+        }
 
-
-        for(int i=0; i<indexOtherI.size(); i++) {
-            if(indexKingI == indexOtherI.get(i)) {
-                if(indexKingJ < indexOtherJ.get(i)) {
-                    for(int j=0; j<indexObstacleJ.size(); j++) {
-                        if(indexKingJ < indexObstacleJ.get(j) &&  indexObstacleJ.get(j)< indexOtherJ.get(j)) {
-                            System.out.println(0);
-                            return;
-                        } else {
-                            System.out.println(1);
-                            return;
-                        }
-                    }
-                } else {
-                    for(int j=0; j<indexObstacleJ.size(); j++) {
-                        if(indexObstacleJ.get(j) < indexObstacleJ.get(j) && indexOtherJ.get(j) < indexKingJ) {
-                            System.out.println(0);
-                            return;
-                        } else {
-                            System.out.println(1);
-                            return;
-                        }
-                    }
+        try{
+            for(int j=rockPositionsY.get(1); j<8; j++) {
+                if(intArray[rockPositionsX.get(1)][j] == 3 || intArray[rockPositionsX.get(1)][j] == 2) {
+                    System.out.println(0);
+                    break;
+                }
+                if(intArray[rockPositionsX.get(1)][j] == 1) {
+                    System.out.println(1);
                 }
             }
-            if(indexKingJ == indexOtherJ.get(i)) {
-                if(indexKingI < indexOtherI.get(i)) {
-                    for(int j=0; j<indexObstacleI.size(); j++) {
-                        if(indexKingI < indexObstacleI.get(j) &&  indexObstacleI.get(j)< indexOtherI.get(j)) {
-                            System.out.println(0);
-                            return;
-                        } else {
-                            System.out.println(1);
-                            return;
-                        }
-                    }
-                } else {
-                    for(int j=0; j<indexObstacleI.size(); j++) {
-                        if(indexObstacleI.get(j) < indexObstacleI.get(j) && indexOtherI.get(j) < indexKingI) {
-                            System.out.println(0);
-                            return;
-                        } else {
-                            System.out.println(1);
-                            return;
-                        }
-                    }
+
+            for(int j=rockPositionsY.get(1); j>0; j--) {
+                if(intArray[rockPositionsX.get(1)][j] == 3 || intArray[rockPositionsX.get(1)][j] == 2) {
+                    System.out.println(0);
+                    break;
+                }
+                if(intArray[rockPositionsX.get(1)][j] == 1) {
+                    System.out.println(1);
                 }
             }
+            for(int i=rockPositionsX.get(1); i<8; i++) {
+                if(intArray[rockPositionsY.get(1)][i] == 3 || intArray[rockPositionsY.get(1)][i] == 2) {
+                    System.out.println(0);
+                    break;
+                }
+                if(intArray[rockPositionsY.get(1)][i] == 1) {
+                    System.out.println(1);
+                }
+            }
+            for(int i=rockPositionsX.get(1); i>0; i--) {
+                if(intArray[rockPositionsY.get(1)][i] == 3 || intArray[rockPositionsY.get(1)][i] == 2) {
+                    System.out.println(0);
+                    break;
+                }
+                if(intArray[rockPositionsY.get(1)][i] == 1) {
+                    System.out.println(1);
+                }
+            }
+        } catch (Exception e) {
+
         }
 
 
