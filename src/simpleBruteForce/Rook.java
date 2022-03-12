@@ -4,126 +4,77 @@ import java.util.*;
 
 public class Rook {
     public static void main(String[] args) {
+        // 외부로부터 체스판을 입력받음
         Scanner sc = new Scanner(System.in);
 
-        String[][] strArray = new String[8][8];
-        Integer[][] intArray = new Integer[8][8];
+        String[][] strArr = new String[8][8];
         for(int i=0; i<8; i++) {
-            strArray[i] = sc.nextLine().split(" ");
+            strArr[i] = sc.nextLine().split(" ");
         }
-
-        for(int i=0; i<8; i++) {
-            for(int j=0; j<8; j++) {
-                intArray[i][j] = Integer.parseInt(strArray[i][j]);
-            }
-        }
-
-        int kingX = 0;
-        int kingY = 0;
-        List<Integer> rockPositionsX = new ArrayList<>();
-        List<Integer> rockPositionsY = new ArrayList<>();
-        List<Integer> obstaclePositionsX = new ArrayList<>();
-        List<Integer> obstaclePositionsY = new ArrayList<>();
-
-
+        Integer[][] intArr = new Integer[8][8];
+        List<Integer> rookX = new ArrayList<>();
+        List<Integer> rookY = new ArrayList<>();
+        int rookNum = 0;
         for(int i=0; i<8; i++) {
             for(int j=0; j<8; j++) {
-                if(intArray[i][j] == 1) {
-                    kingX = i;
-                    kingY = j;
-                }
-
-                if(intArray[i][j] == 2) {
-                    rockPositionsX.add(i);
-                    rockPositionsY.add(j);
-                }
-
-                if(intArray[i][j] == 3) {
-                    obstaclePositionsX.add(i);
-                    obstaclePositionsY.add(j);
+                intArr[i][j] = Integer.parseInt(strArr[i][j]);
+                if(intArr[i][j] == 2) {
+                    rookX.add(i);
+                    rookY.add(j);
+                    rookNum++;
                 }
             }
         }
 
-        for(int j=rockPositionsY.get(0); j<8; j++) {
-            if(intArray[rockPositionsX.get(0)][j] == 3 || intArray[rockPositionsX.get(0)][j] == 2) {
-                System.out.println(0);
-                break;
-            }
-            if(intArray[rockPositionsX.get(0)][j] == 1) {
-                System.out.println(1);
-            }
-        }
-
-        for(int j=rockPositionsY.get(0); j>0; j--) {
-            if(intArray[rockPositionsX.get(0)][j] == 3 || intArray[rockPositionsX.get(0)][j] == 2) {
-                System.out.println(0);
-                break;
-            }
-            if(intArray[rockPositionsX.get(0)][j] == 1) {
-                System.out.println(1);
-            }
-        }
-        for(int i=rockPositionsX.get(0); i<8; i++) {
-            if(intArray[rockPositionsY.get(0)][i] == 3 || intArray[rockPositionsY.get(0)][i] == 2) {
-                System.out.println(0);
-                break;
-            }
-            if(intArray[rockPositionsY.get(0)][i] == 1) {
-                System.out.println(1);
-            }
-        }
-        for(int i=rockPositionsX.get(0); i>0; i--) {
-            if(intArray[rockPositionsY.get(0)][i] == 3 || intArray[rockPositionsY.get(0)][i] == 2) {
-                System.out.println(0);
-                break;
-            }
-            if(intArray[rockPositionsY.get(0)][i] == 1) {
-                System.out.println(1);
-            }
-        }
-
-        try{
-            for(int j=rockPositionsY.get(1); j<8; j++) {
-                if(intArray[rockPositionsX.get(1)][j] == 3 || intArray[rockPositionsX.get(1)][j] == 2) {
-                    System.out.println(0);
+        // rook 을 기준으로 상하좌우를 체크하고 1이 있다면 1을 출력
+        // 도중에 2, 3을 만난다면 break
+        // rook 의 개수 만큼 체크를 해줘야한다.
+        for(int i=0; i<rookNum; i++) {
+            for(int j=rookY.get(i); j<8; j++) {
+                if(intArr[rookX.get(i)][j] == 3) {
                     break;
-                }
-                if(intArray[rockPositionsX.get(1)][j] == 1) {
+                } else if(intArr[rookX.get(i)][j] == 1) {
                     System.out.println(1);
+                    return;
+                } else {
+                    continue;
                 }
             }
-
-            for(int j=rockPositionsY.get(1); j>0; j--) {
-                if(intArray[rockPositionsX.get(1)][j] == 3 || intArray[rockPositionsX.get(1)][j] == 2) {
-                    System.out.println(0);
+            for(int j=rookY.get(i)-1; j>=0; j--) {
+                if(intArr[rookX.get(i)][j] == 3) {
                     break;
-                }
-                if(intArray[rockPositionsX.get(1)][j] == 1) {
+                } else if(intArr[rookX.get(i)][j] == 1) {
                     System.out.println(1);
+                    return;
+                } else {
+                    continue;
                 }
             }
-            for(int i=rockPositionsX.get(1); i<8; i++) {
-                if(intArray[rockPositionsY.get(1)][i] == 3 || intArray[rockPositionsY.get(1)][i] == 2) {
-                    System.out.println(0);
+            for(int j=rookX.get(i); j<8; j++) {
+                if(intArr[j][rookY.get(i)] == 3) {
                     break;
-                }
-                if(intArray[rockPositionsY.get(1)][i] == 1) {
+                } else if(intArr[j][rookY.get(i)] == 1) {
                     System.out.println(1);
+                    return;
+                } else {
+                    continue;
                 }
             }
-            for(int i=rockPositionsX.get(1); i>0; i--) {
-                if(intArray[rockPositionsY.get(1)][i] == 3 || intArray[rockPositionsY.get(1)][i] == 2) {
-                    System.out.println(0);
+            for(int j=rookX.get(i)-1; j>=0; j--) {
+                if(intArr[j][rookY.get(i)] == 3) {
                     break;
-                }
-                if(intArray[rockPositionsY.get(1)][i] == 1) {
+                } else if(intArr[j][rookY.get(i)] == 1) {
                     System.out.println(1);
+                    return;
+                } else {
+                    continue;
                 }
             }
-        } catch (Exception e) {
-
         }
+        System.out.println(0);
+
+
+
 
 
     }
