@@ -80,6 +80,12 @@ public class Tetris {
                 index = i;
             }
         }
-        System.out.println(possibleCol.get(index) + 1 + " " + value);
+
+        if(value == 0) {
+            System.out.println(0 + " " + value);
+        } else {
+            System.out.println(possibleCol.get(index) + 1 + " " + value);
+        }
+
     }
 }
