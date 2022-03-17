@@ -6,16 +6,18 @@ public class SolvePermutation {
     int n;
     int r;
     char[] result = new char[10];
+    String answer = "";
     boolean[] checkArr = {false, false, false, false, false, false, false, false, false, false};
 
     public void getResult(int x) {
         if(x >= r) {
             for(int i=0; i<result.length; i++) {
                 if(result[i] != 0) {
-                    System.out.print(result[i]);
+                    answer+=result[i];
                 }
             }
-            System.out.println();
+            System.out.println(answer);
+            answer="";
         } else {
             for(int i=0; i<n; i++) {
                 char alpha = (char) (i + 'a');
