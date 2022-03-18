@@ -2,23 +2,23 @@ package level3;
 
 import java.util.Scanner;
 
-public class FlipMatrix {
+public class FlipMatrix2 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        int N = sc.nextInt();
-        Integer[][] intArr = new Integer[10][10];
+        int N = Integer.parseInt(sc.nextLine());
+        String[][] inputArr = new String[10][10];
+
         for(int i=0; i<10; i++) {
-            for(int j=0; j<10; j++) {
-                intArr[i][j] = 0;
-            }
+            inputArr[i] = sc.nextLine().split(" ");
         }
+
         for(int i=0; i<N; i++) {
             for(int j=0; j<10; j++) {
-                if(intArr[i][j] == 0) {
-                    intArr[i][j] = 1;
+                if(inputArr[i][j].equals("1")) {
+                    inputArr[i][j] = "0";
                 } else {
-                    intArr[i][j] = 0;
+                    inputArr[i][j] = "1";
                 }
             }
         }
@@ -27,18 +27,17 @@ public class FlipMatrix {
                 if(i==j) {
                     continue;
                 }
-                if(intArr[i][j] == 0) {
-                    intArr[i][j] = 1;
+                if(inputArr[i][j].equals("1")) {
+                    inputArr[i][j] = "0";
                 } else {
-                    intArr[i][j] = 0;
+                    inputArr[i][j] = "1";
                 }
             }
         }
 
-
-        for(int i=0; i<10; i++) {
+        for(int i=0; i<10; i++){
             for(int j=0; j<10; j++) {
-                System.out.print(intArr[i][j] + " ");
+                System.out.print(inputArr[i][j] + " ");
             }
             System.out.println();
         }
