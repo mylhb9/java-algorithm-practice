@@ -1,6 +1,5 @@
 package level3;
 
-
 import java.util.Scanner;
 
 public class Mine {
@@ -12,18 +11,19 @@ public class Mine {
         int M = Integer.parseInt(mapSize[1]);
 
         String[] clickPosition = sc.nextLine().split(" ");
-        int x = Integer.parseInt(clickPosition[0])-1;
-        int y = Integer.parseInt(clickPosition[1])-1;
+        int x = Integer.parseInt(clickPosition[0]);
+        int y = Integer.parseInt(clickPosition[1]);
 
         String[][] strMap = new String[N][M];
-        Integer[][] map = new Integer[N][M];
+        Integer[][] map = new Integer[N+2][M+2];
 
         for(int i=0; i<N; i++) {
             strMap[i] = sc.nextLine().split(" ");
         }
+
         for(int i=0; i<N; i++) {
             for(int j=0; j<M; j++) {
-                map[i][j] = Integer.parseInt(strMap[i][j]);
+                map[i+1][j+1] = Integer.parseInt(strMap[i][j]);
             }
         }
         if(map[x][y] == 0) {

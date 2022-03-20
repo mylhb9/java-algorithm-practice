@@ -18,32 +18,42 @@ public class RepresentativeValue {
         System.out.println(sum / 10);
 
         Arrays.sort(intArr);
+        System.out.println(Arrays.toString(intArr));
         int count = 1;
         HashMap<Integer, Integer> myMap = new HashMap<>();
         for(int i=1; i<10; i++) {
             if(intArr[i-1] != intArr[i] && i==9) {
-                myMap.put(i-1, count);
+                myMap.put(intArr[i-1], count);
                 count = 1;
-                myMap.put(i, count);
+                myMap.put(intArr[i], count);
             } else if(intArr[i-1] != intArr[i]) {
-                myMap.put(i-1, count);
+                myMap.put(intArr[i-1], count);
                 count = 1;
-                continue;
             } else if(i == 9) {
                 count++;
-                myMap.put(i, count);
+                myMap.put(intArr[i], count);
+            } else {
+                count++;
             }
-            count++;
+
         }
         System.out.println(myMap);
         int max = 0;
         int index = 0;
         for(Integer idx : myMap.keySet()) {
-            if(max < myMap.get(idx)) {
-                max = myMap.get(idx);
-                index = idx;
+            max = Math.max(max, myMap.get(idx));
+        }
+        List<Integer> equalList = new ArrayList<>();
+        for(Integer idx : myMap.keySet()) {
+            if(myMap.get(idx) == max) {
+                equalList.add(idx);
             }
         }
-        System.out.println(intArr[index]);
+        int mn = Integer.MAX_VALUE;
+        for(int i=0; i<equalList.size(); i++) {
+            mn = Math.min(mn, equalList.get(i));
+        }
+
+        System.out.println(mn);
     }
 }
