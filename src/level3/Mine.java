@@ -21,11 +21,18 @@ public class Mine {
             strMap[i] = sc.nextLine().split(" ");
         }
 
+        for(int i=0; i<N+2; i++) {
+            for(int j=0; j<M+2; j++) {
+                map[i][j] = 0;
+            }
+        }
+
         for(int i=0; i<N; i++) {
             for(int j=0; j<M; j++) {
                 map[i+1][j+1] = Integer.parseInt(strMap[i][j]);
             }
         }
+
         if(map[x][y] == 0) {
             int sum = map[x-1][y-1] + map[x-1][y] + map[x-1][y+1] + map[x][y-1] + map[x][y+1] + map[x+1][y-1] + map[x+1][y] + map[x+1][y+1];
             System.out.println(sum);
