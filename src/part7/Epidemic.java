@@ -55,6 +55,9 @@ public class Epidemic {
         check[K] = true;
 
         while(true) {
+
+            K = queue.pop();
+
             if(K*2 <= N && !check[K*2]) {
                 queue.push(K*2);
                 check[K*2] = true;
@@ -65,7 +68,7 @@ public class Epidemic {
                 check[K/3] = true;
             }
 
-            K = queue.pop();
+
 
             if(queue.length <= 0 || queue.length > queue.capacity) {
                 break;
@@ -73,8 +76,8 @@ public class Epidemic {
         }
 
         int count = 0;
-        for(int i=0; i<=100000; i++) {
-            if(check[i]) {
+        for(int i=1; i<=N; i++) {
+            if(!check[i]) {
                 count++;
             }
         }
