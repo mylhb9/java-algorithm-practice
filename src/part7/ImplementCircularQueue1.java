@@ -26,7 +26,7 @@ class MyQueue1 {
         }
     }
 
-    public void pop() {
+    public int pop() {
         if(length <= 0) {
             System.out.println("Underflow");
         } else {
@@ -37,6 +37,7 @@ class MyQueue1 {
             }
             length--;
         }
+        return 0;
     }
 
     public void front() {
