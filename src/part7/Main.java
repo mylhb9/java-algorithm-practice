@@ -20,25 +20,28 @@ public class Main {
         char[] inputArr = sc.nextLine().toCharArray();
         Stack<Character> stack = new Stack<>();
         for(int i=0; i<inputArr.length; i++) {
-            for(int j=alphabetList.size()-1; j>=0; j--) {
-                if(alphabetList.get(j) < inputArr[i]) {
-                    stack.push(alphabetList.get(j));
-                    alphabetList.remove(j);
+            while(!stack.empty() || alphabetList.size() != 0) {
+                if(alphabetList.get(alphabetList.size()-1) < inputArr[i]) {
+                    stack.push(alphabetList.get(alphabetList.size()-1));
+                    alphabetList.remove(alphabetList.size()-1);
                     answerList.add("push");
-                } else if(alphabetList.get(j) == inputArr[i]) {
-                    stack.push(alphabetList.get(j));
-                    alphabetList.remove(j);
+                } else if(alphabetList.get(alphabetList.size()-1) == inputArr[i]) {
+                    stack.push(alphabetList.get(alphabetList.size()-1));
+                    alphabetList.remove(alphabetList.size()-1);
                     answerList.add("push");
                     stack.pop();
                     answerList.add("pop");
                     break;
                 } else {
                     char pivot = stack.pop();
-                    if(pivot != alphabetList.get(j)) {
+                    if(pivot != alphabetList.get(alphabetList.size()-1)) {
                         System.out.println("impossible");
                         return;
+                    } else {
+                        answerList.add("pop");
+                        break;
                     }
-                    answerList.add("pop");
+
                 }
             }
         }
