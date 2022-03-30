@@ -1,35 +1,28 @@
 package part8;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-class Tree3 {
-    int parentNode;
-}
-
 public class TreeMeter {
-    int distanceNode;
-    int count = 1;
-    boolean check = false;
-    Tree3[] tree = new Tree3[1005];
-    boolean[] visit = new boolean[1005];
-    Integer[] distanceArr = new Integer[1005];
-
-    public void meter(int x) {
-        if(x == 0) {
-
-        } else if(tree[x].parentNode == 0 || visit[tree[x].parentNode] || tree[x].parentNode == distanceNode) {
-            if(visit[tree[x].parentNode] || tree[x].parentNode == 0) {
-                distanceArr[x] = count;
-                count = 1;
-            } else {
-                check = true;
-                distanceArr[x] = count;
-                count = 1;
+    Integer[][] edges;
+    boolean[][] checks;
+    int n;
+    int destination;
+    int count = 0;
+    List<Integer> countList = new ArrayList<>();
+    public void printMeter(int x) {
+        for(int i=0; i<n; i++) {
+            if(edges[x][i] == 1 && !checks[x][i] && i !=destination ) {
+                checks[x][i] = true;
+                checks[i][x] = true;
+                count++;
+                printMeter(i);
+                count--;
+            } else if(i==destination && edges[x][i] == 1 && !checks[x][i]){
+                count++;
+                countList.add(count);
             }
-        } else {
-            count++;
-            visit[x] = true;
-            meter(tree[x].parentNode);
         }
     }
 
@@ -37,57 +30,43 @@ public class TreeMeter {
         Scanner sc = new Scanner(System.in);
 
         String[] strArr = sc.nextLine().split(" ");
+
         int n = Integer.parseInt(strArr[0]);
         int X = Integer.parseInt(strArr[1]);
         int Y = Integer.parseInt(strArr[2]);
 
-        Tree3[] tree = new Tree3[1005];
-        for(int i=0; i<tree.length; i++) {
-            tree[i] = new Tree3();
+        // 간선 정보 받을 공간 초기화
+        Integer[][] edges = new Integer[n][n];
+        // 간선 방문 여부 초기화
+        boolean[][] checks = new boolean[n][n];
+        for(int i=0; i<n; i++) {
+            for(int j=0; j<n; j++) {
+                edges[i][j] = 0;
+                checks[i][j] = false;
+            }
         }
+
+        // 간선 정보 입력 받기
         String[][] inputArr = new String[n-1][2];
         for(int i=0; i<n-1; i++) {
             inputArr[i] = sc.nextLine().split(" ");
-            tree[Integer.parseInt(inputArr[i][1])].parentNode = Integer.parseInt(inputArr[i][0]);
+            edges[Integer.parseInt(inputArr[i][0])][Integer.parseInt(inputArr[i][1])] = 1;
+            edges[Integer.parseInt(inputArr[i][1])][Integer.parseInt(inputArr[i][0])] = 1;
         }
 
+
+
+
+
+
         TreeMeter m = new TreeMeter();
-        m.tree = tree;
-        boolean isCheck = false;
-        boolean[] visit = new boolean[1005];
-        for(int i=0; i<visit.length; i++) {
-            visit[i] = false;
-        }
-        m.visit = visit;
-        Integer[] distanceArr = new Integer[1005];
-        for(int i=0; i<distanceArr.length; i++) {
-            distanceArr[i] = 0;
-        }
-        m.distanceArr = distanceArr;
-        if(X > Y) {
-            m.distanceNode = Y;
-            m.meter(X);
-            isCheck = true;
-        } else if(X < Y) {
-            m.distanceNode = X;
-            m.meter(Y);
-        } else {
-            System.out.println(0);
-            return;
-        }
-        int sum = 0;
-        if(!m.check) {
-            if(isCheck) {
-                m.distanceNode = X;
-                m.meter(Y);
-            } else {
-                m.distanceNode = Y;
-                m.meter(X);
-            }
-        }
-        for(int i=0; i<m.distanceArr.length; i++) {
-            sum += m.distanceArr[i];
-        }
-        System.out.println(sum);
+        m.n = n;
+        m.destination = Y;
+        m.edges = edges;
+        m.checks = checks;
+        m.printMeter(X);
+        System.out.println(m.countList.get(0));
+
     }
 }
+
