@@ -4,61 +4,68 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-class Tree2 {
-    int parent;
-}
+
 
 public class TreeHeight {
     List<Integer> countList = new ArrayList<>();
-    int r;
-    int count = 1;
-    Tree2[] tree = new Tree2[1000];
+    int count = 0;
+    int n = 0;
+    Integer[][] edges;
+    boolean[][] checks;
 
 
-    void findHeight(int x) {
-        if(x==r) {
-
+    void findHeight(int root) {
+        for(int i=0; i<n; i++) {
+            if(edges[root][i] == 1 && !checks[root][i]) {
+                count++;
+                checks[root][i] = true;
+                checks[i][root] = true;
+                findHeight(i);
+                count--;
+            } else {
+                countList.add(count);
+            }
         }
-        else if(tree[x].parent == r) {
-            countList.add(count);
-            count = 1;
-        } else {
-            count++;
-            findHeight(tree[x].parent);
 
-        }
     }
-
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
         String[] strArr = sc.nextLine().split(" ");
         int n = Integer.parseInt(strArr[0]);
         int r = Integer.parseInt(strArr[1]);
 
-        Tree2[] tree = new Tree2[1000];
-        for(int i=0; i<100; i++) {
-            tree[i] = new Tree2();
+        // 간선 정보 담기위한 공간 초기화
+        Integer[][] edges = new Integer[n][n];
+        boolean[][] checks = new boolean[n][n];
+        for(int i=0; i<n; i++) {
+            for(int j=0; j<n; j++) {
+                edges[i][j] = 0;
+                checks[i][j] = false;
+            }
         }
+
+        // 입력받은 정보를 토대로 간선 정보를 저장
         String[][] inputArr = new String[n-1][2];
         for(int i=0; i<n-1; i++) {
             inputArr[i] = sc.nextLine().split(" ");
-            tree[Integer.parseInt(inputArr[i][1])].parent = Integer.parseInt(inputArr[i][0]);
+            edges[Integer.parseInt(inputArr[i][1])][Integer.parseInt(inputArr[i][0])] = 1;
+            edges[Integer.parseInt(inputArr[i][0])][Integer.parseInt(inputArr[i][1])] = 1;
         }
+
+
         TreeHeight m = new TreeHeight();
-        m.tree = tree;
-        m.r = r;
+        m.edges = edges;
+        m.checks = checks;
+        m.n = n;
+        m.findHeight(r);
 
-        for(int i=0; i<n-1; i++) {
-            m.findHeight(Integer.parseInt(inputArr[i][1]));
-        }
-
-        int height = 0;
+        int max = 0;
         for(int i=0; i<m.countList.size(); i++) {
-            height = Math.max(height, m.countList.get(i));
+            max = Math.max(max, m.countList.get(i));
         }
-        System.out.println(height);
+        System.out.println(max);
+
 
     }
 }
