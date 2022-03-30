@@ -12,11 +12,14 @@ public class TreeHeight {
     List<Integer> countList = new ArrayList<>();
     int r;
     int count = 1;
-    Tree2[] tree = new Tree2[100];
+    Tree2[] tree = new Tree2[1000];
 
 
     void findHeight(int x) {
-        if(tree[x].parent == r) {
+        if(x==r) {
+
+        }
+        else if(tree[x].parent == r) {
             countList.add(count);
             count = 1;
         } else {
@@ -34,7 +37,7 @@ public class TreeHeight {
         int n = Integer.parseInt(strArr[0]);
         int r = Integer.parseInt(strArr[1]);
 
-        Tree2[] tree = new Tree2[100];
+        Tree2[] tree = new Tree2[1000];
         for(int i=0; i<100; i++) {
             tree[i] = new Tree2();
         }
@@ -50,7 +53,7 @@ public class TreeHeight {
         for(int i=0; i<n-1; i++) {
             m.findHeight(Integer.parseInt(inputArr[i][1]));
         }
-        System.out.println(m.countList);
+
         int height = 0;
         for(int i=0; i<m.countList.size(); i++) {
             height = Math.max(height, m.countList.get(i));
