@@ -62,8 +62,14 @@ public class AddLargeDigits {
             if(a>9) {
                 sumArr[i] += a - 10;
                 sumArr[i+1] += 1;
+                if(sumArr[i] > 9) {
+                    sumArr[i]-=10;
+                }
             } else {
                 sumArr[i] += a;
+                if(sumArr[i] > 9) {
+                    sumArr[i]-=10;
+                }
             }
         }
         if(sumArr[sumArr.length-1] != 0) {
