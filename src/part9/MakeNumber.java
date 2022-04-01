@@ -9,19 +9,23 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class MakeNumber {
-    int sum = 0;
+    int N;
     Integer[] intArr;
     boolean[] check;
-    public void makeNum(int x) {
-        if(x==sum) {
+    int count = 0;
+    public void makeNum(int x, int sum) {
+        if(sum == N) {
+            count++;
             System.out.println(Arrays.toString(intArr));
-        } else {
-            for(int i=1; i<=sum-1; i++) {
+        } else if(sum < N){
+            for(int i=1; i<=3; i++) {
                 if(!check[x]) {
                     intArr[x] = i;
                     check[x] = true;
-                    makeNum(x+1);
+                    sum += intArr[x];
+                    makeNum(x+1, sum);
                     check[x] = false;
+                    sum -= intArr[x];
                     intArr[x] = 0;
                 }
             }
@@ -32,8 +36,18 @@ public class MakeNumber {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
         MakeNumber m = new MakeNumber();
-        m.sum = N;
-        
-
+        m.N = N;
+        Integer[] intArr = new Integer[N];
+        for(int i=0; i<intArr.length; i++) {
+            intArr[i] = 0;
+        }
+        boolean[] check = new boolean[N];
+        for(int i=0; i<check.length; i++) {
+            check[i] = false;
+        }
+        m.intArr = intArr;
+        m.check = check;
+        m.makeNum(0, 0);
+        System.out.println(m.count%1000007);
     }
 }
