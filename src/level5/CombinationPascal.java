@@ -3,11 +3,19 @@ package level5;
 import java.util.Scanner;
 
 public class CombinationPascal {
-    public static int factorial(int x) {
-        if(x == 1) {
+    Integer[][] notes;
+
+    public int pascal(int n, int r) {
+        if(n == r) {
+            return 1;
+        } else if(r==0) {
             return 1;
         } else {
-            return x * factorial(x - 1);
+            if(notes[n][r] != null) {
+                return notes[n][r];
+            }
+            notes[n][r] = pascal(n-1, r-1) + pascal(n-1, r);
+            return notes[n][r];
         }
     }
 
@@ -18,11 +26,9 @@ public class CombinationPascal {
         int n = Integer.parseInt(strArr[0]);
         int m = Integer.parseInt(strArr[1]);
 
-        int parent = 1;
-        for(int i=n; i>n-m; i--) {
-            parent *= i;
-        }
-        int son = factorial(m);
-        System.out.println(parent/son);
+        CombinationPascal c = new CombinationPascal();
+        Integer[][] notes = new Integer[31][31];
+        c.notes = notes;
+        System.out.println(c.pascal(n, m));
     }
 }
