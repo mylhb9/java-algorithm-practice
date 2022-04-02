@@ -1,84 +1,81 @@
 package level6;
 
+// 문제: 두 자연수가 주어질 때, 그들의 덧셈을 계산하는 프로그램을 작성
+// 각 수는 1 이상 10^100 미만의 범위를 가짐
+
+// 입력: 두 자연수가 주어짐
+// 출력: 덧셈의 결과를 출력한다.
+
 import java.util.Scanner;
 
-// 문제: 두 자연수가 주어질 때, 그들의 덧셈을 계산하는 프로그램
-// 각 수는 1 이상 10^100 미만의 범위를 가진다.
-// 입력: 첫 번째 줄과 두 번째 줄에 하나의 자연수가 주어진다.
-// 출력: 덧셈의 결과를 출력한다.
 public class AddLargeDigits {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        // 처리
-        // 두 수를 Integer[] 에 각각 담고, 결과를 담을 Integer[] 을 만든다.
-        // for 문을 통해 각 열마다 더해가면서, 합이 9보다 크면 다음 배열에 1을 더 더해준다.
-
-        String[] arr1 = sc.nextLine().split("");
-        String[] arr2 = sc.nextLine().split("");
-        String[] firstArr;
-        String[] inputSecondArr;
-        if(arr1.length >= arr2.length) {
-            firstArr = arr1;
-            inputSecondArr = arr2;
+        // 입력: 두 자연수를 받음
+        String[] firstInputNum = sc.nextLine().split("");
+        String[] secondInputNum = sc.nextLine().split("");
+        int numSize = 0;
+        int digitDiff = 0;
+        if(firstInputNum.length > secondInputNum.length) {
+            numSize = firstInputNum.length + 1;
+            digitDiff = firstInputNum.length - secondInputNum.length + 1;
         } else {
-            firstArr = arr2;
-            inputSecondArr = arr1;
+            numSize = secondInputNum.length + 1;
+            digitDiff = secondInputNum.length - firstInputNum.length + 1;
         }
+        // 입력된 자연수를 계산하기 위해 배열에 나누어 담기
+        Integer[] firstNum = new Integer[numSize];
+        Integer[] secondNum = new Integer[numSize];
 
-
-        String[] secondArr = new String[firstArr.length];
-        for(int i=0; i<inputSecondArr.length; i++) {
-            secondArr[i+(firstArr.length - inputSecondArr.length)] = inputSecondArr[i];
-        }
-
-        Integer[] intFirstArr = new Integer[firstArr.length];
-        Integer[] intSecondArr = new Integer[firstArr.length];
-        Integer[] sumArr = new Integer[firstArr.length+1];
-
-        for(int i=0; i<intFirstArr.length; i++) {
-            if(firstArr[firstArr.length-1-i] == null) {
-                intFirstArr[i] = 0;
-            } else {
-                intFirstArr[i] = Integer.parseInt(firstArr[firstArr.length-1-i]);
-            }
-
-        }
-        for(int i=0; i<intSecondArr.length; i++) {
-            if(secondArr[secondArr.length-1-i] == null) {
-                intSecondArr[i] = 0;
-            } else {
-                intSecondArr[i] = Integer.parseInt(secondArr[secondArr.length-1-i]);
-            }
-
-        }
-
-        for(int i=0; i<sumArr.length; i++) {
-            sumArr[i] = 0;
-        }
-
-
-        for(int i=0; i<intFirstArr.length; i++) {
-            int a = intFirstArr[i] + intSecondArr[i];
-            if(a>9) {
-                sumArr[i] += a - 10;
-                sumArr[i+1] += 1;
-                if(sumArr[i] > 9) {
-                    sumArr[i]-=10;
+        // 숫자 입력 받기
+        if(firstInputNum.length > secondInputNum.length) {
+            for(int i=0; i<numSize; i++) {
+                if(i == 0) {
+                    firstNum[i] = 0;
+                } else {
+                    firstNum[i] = Integer.parseInt(firstInputNum[i-1]);
                 }
-            } else {
-                sumArr[i] += a;
-                if(sumArr[i] > 9) {
-                    sumArr[i]-=10;
+                if(i < digitDiff) {
+                    secondNum[i] = 0;
+                } else {
+                    secondNum[i] = Integer.parseInt(secondInputNum[i-digitDiff]);
+                }
+            }
+        } else {
+            for(int i=0; i<numSize; i++) {
+                if(i == 0) {
+                    secondNum[i] = 0;
+                } else {
+                    secondNum[i] = Integer.parseInt(secondInputNum[i-1]);
+                }
+                if(i < digitDiff) {
+                    firstNum[i] = 0;
+                } else {
+                    firstNum[i] = Integer.parseInt(firstInputNum[i-digitDiff]);
                 }
             }
         }
-        if(sumArr[sumArr.length-1] != 0) {
-            for(int i=0; i<sumArr.length; i++) {
-                System.out.print(sumArr[sumArr.length-1-i]);
+
+        Integer[] sumNum = new Integer[numSize];
+        for(int i=0; i< sumNum.length; i++) {
+            sumNum[i] = 0;
+        }
+        // 자리 수 별로 숫자를 덧셈하기
+        for(int i=numSize-1; i>=0; i--) {
+            sumNum[i] += firstNum[i] + secondNum[i];
+            if(sumNum[i] > 9) {
+                sumNum[i] -= 10;
+                sumNum[i-1] += 1;
+            }
+        }
+
+        if(sumNum[0] != 0) {
+            for(int i=0; i< sumNum.length; i++) {
+                System.out.print(sumNum[i]);
             }
         } else {
-            for(int i=1; i<sumArr.length; i++) {
-                System.out.print(sumArr[sumArr.length-1-i]);
+            for(int i=1; i< sumNum.length; i++) {
+                System.out.print(sumNum[i]);
             }
         }
 
