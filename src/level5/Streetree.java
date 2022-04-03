@@ -7,6 +7,16 @@ import java.util.*;
 // 처리: 공약수를 구해서 해당하는 위치에 나무가 없을 떄만 카운팅한다.
 
 public class Streetree {
+    public static int getGcd(int a, int b) {
+        int temp;
+        while(a % b != 0) {
+            temp = a % b;
+            a = b;
+            b = temp;
+        }
+        return b;
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -16,39 +26,28 @@ public class Streetree {
             inputArr[i] = Integer.parseInt(sc.nextLine());
         }
 
-        Integer[] commonFactor = new Integer[N-1];
+        Integer[] distanceArr = new Integer[N-1];
         for(int i=0; i<N-1; i++) {
-            commonFactor[i] = inputArr[i+1] - inputArr[i];
+            distanceArr[i] = inputArr[i+1] - inputArr[i];
         }
 
-        List<Integer> commonList = new ArrayList<>();
-        for(int i=1; i<commonFactor[commonFactor.length-1]; i++) {
-            boolean check = false;
-            for(int j=0; j<commonFactor.length; j++) {
-                if(commonFactor[j] % i !=0) {
-                    check = true;
-                }
-            }
-            if(!check) {
-                commonList.add(i);
-            }
+        int gcd = distanceArr[0];
+        for(int i=1; i<N-1; i++) {
+            gcd = getGcd(gcd, distanceArr[i]);
         }
-        int distance = commonList.get(commonList.size()-1);
 
-        int count =0 ;
-
-        for(int i=inputArr[0]; i<=inputArr[inputArr.length-1]; i+=distance) {
-            boolean check = false;
-            for(int j=0; j<inputArr.length; j++) {
-                if(inputArr[j] == i) {
-                    check = true;
-                    break;
-                }
-            }
-            if(!check) {
+        int count = 0;
+        boolean[] check = new boolean[200000];
+        Arrays.fill(check, false);
+        for(int i=0; i<inputArr.length; i++) {
+            check[inputArr[i]] = true;
+        }
+        for(int i=inputArr[0]; i<=inputArr[inputArr.length-1]; i+=gcd) {
+            if(!check[i]) {
                 count++;
             }
         }
         System.out.println(count);
+
     }
 }
