@@ -3,11 +3,16 @@ package level5;
 import java.util.Scanner;
 
 public class CombinationZero {
-    public static int factorial(int x) {
+    Integer[] notes;
+    public int factorial(int x) {
         if(x == 1) {
             return 1;
         } else {
-            return x * factorial(x - 1);
+            if(notes[x] != null) {
+                return notes[x];
+            }
+            notes[x] = x * factorial(x - 1);
+            return notes[x];
         }
     }
 
@@ -18,11 +23,14 @@ public class CombinationZero {
         int n = Integer.parseInt(strArr[0]);
         int m = Integer.parseInt(strArr[1]);
 
+        CombinationZero c = new CombinationZero();
+        c.notes = new Integer[1000010];
         long parent = 1;
         for(int i=n; i>n-m; i--) {
             parent *= i;
         }
-        int son = factorial(m);
+        int son = c.factorial(m);
+        System.out.println(son);
         long answer  = parent / son;
 
         int count = 0;
