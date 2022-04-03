@@ -1,8 +1,6 @@
 package level5;
 
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.Scanner;
 
 // 문제: 베르트랑-체비쇼프 정리
@@ -15,29 +13,39 @@ public class Chebyshevtheo {
         Scanner sc = new Scanner(System.in);
 
 
-        List<Integer> integerList = new ArrayList<>();
+        boolean[] isPrime = new boolean[250000];
+        Arrays.fill(isPrime, true);
+        isPrime[1] = false;
+        for(int i=2; i<=123456*2; i++) {
+            if(!isPrime[i]) {
+                continue;
+            }
+            if(i*i >= Integer.MAX_VALUE-1000000) {
+                break;
+            }
+            for(int j=i*i; j<=123456*2; j+=i) {
+                isPrime[j] = false;
+            }
+        }
+
+        Integer[] prefix = new Integer[250000];
+        Arrays.fill(prefix, 0);
+        for(int i=1; i<=123456*2; i++) {
+            if(isPrime[i]) {
+                prefix[i] = prefix[i-1] + 1;
+            } else {
+                prefix[i] = prefix[i-1];
+            }
+        }
+
         while(true) {
             int a = Integer.parseInt(sc.nextLine());
             if(a == 0) {
                 break;
+            } else {
+                System.out.println(prefix[2*a] - prefix[a]);
             }
-            integerList.add(a);
         }
 
-        for(int i=0; i<integerList.size(); i++) {
-            int count = 0;
-            for(int j=integerList.get(i)+1; j<=2*integerList.get(i); j++) {
-                boolean check = false;
-                for(int k=2; k<j; k++) {
-                    if(j % k == 0) {
-                        check = true;
-                    }
-                }
-                if(!check) {
-                    count++;
-                }
-            }
-            System.out.println(count);
-        }
     }
 }
