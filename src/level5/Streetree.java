@@ -37,17 +37,9 @@ public class Streetree {
         }
 
         int count = 0;
-        boolean[] check = new boolean[200000];
-        Arrays.fill(check, false);
-        for(int i=0; i<inputArr.length; i++) {
-            check[inputArr[i]] = true;
-        }
-        for(int i=inputArr[0]; i<=inputArr[inputArr.length-1]; i+=gcd) {
-            if(!check[i]) {
-                count++;
-            }
+        for(int i=0; i<N-1; i++) {
+            count+=(distanceArr[i]/gcd-1);
         }
         System.out.println(count);
-
     }
 }
