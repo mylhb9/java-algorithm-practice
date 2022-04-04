@@ -8,7 +8,7 @@ package level6;
 
 import java.util.Scanner;
 
-public class AddLargeDigits {
+public class AddLargeDigits1 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         // 입력: 두 자연수를 받음
