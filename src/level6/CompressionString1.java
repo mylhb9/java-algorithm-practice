@@ -7,7 +7,7 @@ import java.util.Scanner;
 // 입력: 압축하고자 하는 문자열이 주어짐. 문자열의 길이는 1000보다 작다.
 // 문자열에 구성된 알파벳은 대문자이다.
 // 출력: 압축한 결과를 출력한다.
-public class CompressionString {
+public class CompressionString1 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         // 처리:
