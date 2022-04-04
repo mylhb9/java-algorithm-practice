@@ -29,14 +29,3 @@ public class SumOfSquares {
         System.out.println(table[N]);
     }
 }
-
-
-// 1 1      1
-// 2 1+1    2
-// 3 1+1+1  3
-// 4 4      1
-// 5 4+1    2
-// 6 4+1+1  3
-// 7 4+1+1+1  4
-// 8 4+4    2
-// 9 9      1
