@@ -12,7 +12,7 @@ package part10;
 
 import java.util.*;
 
-public class JudgeBinaryGraph {
+public class JudgeBinaryGraph1 {
     Map<Integer, List<Integer>> graph;
     boolean[] visited;
     boolean[] check1;
@@ -56,7 +56,7 @@ public class JudgeBinaryGraph {
             graph.get(Integer.parseInt(inputArr[i][0])).add(Integer.parseInt(inputArr[i][1]));
             graph.get(Integer.parseInt(inputArr[i][1])).add(Integer.parseInt(inputArr[i][0]));
         }
-        JudgeBinaryGraph m = new JudgeBinaryGraph();
+        JudgeBinaryGraph1 m = new JudgeBinaryGraph1();
         m.graph = graph;
         m.visited = new boolean[1005];
         m.check1 = new boolean[1005];
