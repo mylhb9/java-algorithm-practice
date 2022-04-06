@@ -15,7 +15,7 @@ public class ToBin {
     public void getResult(int x) {
         if(x >= n) {
             if(checks[1] == k) {
-                StringBuffer sb = new StringBuffer();
+                StringBuilder sb = new StringBuilder();
                 for(int i=0; i<notes.length; i++) {
                     if(notes[i] != null) {
                         sb.append(notes[i]);
