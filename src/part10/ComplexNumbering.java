@@ -8,23 +8,18 @@ import java.util.*;
 // 지도를 입력해서 단지수를 출력 / 각 단지에 속하는 집의 수를 오름차순으로 정렬하여 출력
 public class ComplexNumbering {
     Integer[][] map;
+    Integer[] nx = {1, -1, 0, 0};
+    Integer[] ny = {0, 0, -1, 1};
     public int getGroup(int x, int y) {
         int count = 0;
 
         map[x][y] = 0;
         count++;
 
-        if(map[x+1][y] == 1) {
-            count += getGroup(x+1, y);
-        }
-        if(map[x-1][y] == 1) {
-            count += getGroup(x-1, y);
-        }
-        if(map[x][y+1] == 1) {
-            count += getGroup(x, y+1);
-        }
-        if(map[x][y-1] == 1) {
-            count += getGroup(x, y-1);
+        for(int i=0; i<4; i++) {
+            if(map[x+nx[i]][y+ny[i]] == 1) {
+                count += getGroup(x+nx[i], y+ny[i]);
+            }
         }
 
         return count;
@@ -43,12 +38,12 @@ public class ComplexNumbering {
         Integer[][] map = new Integer[N+2][N+2];
         for(int i=0; i<N+2; i++) {
             for(int j=0; j<N+2; j++) {
-                map[i][j] = 0;
-            }
-        }
-        for(int i=0; i<N; i++) {
-            for(int j=0; j<N; j++) {
-                map[i+1][j+1] = Integer.parseInt(inputArr[i][j]);
+                if((i == 0) || (i == N+1) || (j == N+1) || (j == 0)) {
+                    map[i][j] = 0;
+                } else {
+                    map[i][j] = Integer.parseInt(inputArr[i-1][j-1]);
+                }
+
             }
         }
 
@@ -62,15 +57,13 @@ public class ComplexNumbering {
                 }
             }
         }
+
         Collections.sort(result);
+
         System.out.println(result.size());
+
         for(int i=0; i<result.size(); i++) {
             System.out.println(result.get(i));
         }
-
-
-
-
-
     }
 }
