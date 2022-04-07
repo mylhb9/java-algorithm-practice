@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 
 
-public class TreeHeight {
+public class TreeHeight1 {
     List<Integer> countList = new ArrayList<>();
     int count = 0;
     int n = 0;
@@ -54,7 +54,7 @@ public class TreeHeight {
         }
 
 
-        TreeHeight m = new TreeHeight();
+        TreeHeight1 m = new TreeHeight1();
         m.edges = edges;
         m.checks = checks;
         m.n = n;
