@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class TreeMeter {
+public class TreeMeter1 {
     Integer[][] edges;
     boolean[][] checks;
     int n;
@@ -59,7 +59,7 @@ public class TreeMeter {
 
 
 
-        TreeMeter m = new TreeMeter();
+        TreeMeter1 m = new TreeMeter1();
         m.n = n;
         m.destination = Y;
         m.edges = edges;
