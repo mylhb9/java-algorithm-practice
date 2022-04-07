@@ -2,86 +2,97 @@ package part8;
 
 import java.util.Scanner;
 
-class Tree {
+class Tree4 {
     int left;
     int right;
-
 }
 
-public class PrintVisitTree {
-    Tree[] tree = new Tree[1000];
-    void preOrder(int x) {
-        // x를 루트로 하는 서브 트리를 전위 순회하여 출력하는 메소드
+public class PrintVisitTree2 {
+    Tree4[] tree;
+    public void front(int x) {
         if(tree[x].left == -1 && tree[x].right == -1) {
-            System.out.print(x +" ");
-        } else {
             System.out.print(x + " ");
-
+        } else {
+            System.out.print(x+ " ");
             if(tree[x].left != -1) {
-                preOrder(tree[x].left);
+                front(tree[x].left);
             }
 
             if(tree[x].right != -1) {
-                preOrder(tree[x].right);
+                front(tree[x].right);
             }
         }
+
     }
 
-    void inOrder(int x) {
+    public void middle(int x) {
         if(tree[x].left == -1 && tree[x].right == -1) {
-            System.out.print(x +" ");
+            System.out.print(x + " ");
         } else {
             if(tree[x].left != -1) {
-                inOrder(tree[x].left);
+                middle(tree[x].left);
             }
-            System.out.print(x +" ");
+
+            System.out.print(x+ " ");
+
             if(tree[x].right != -1) {
-                inOrder(tree[x].right);
+                middle(tree[x].right);
             }
         }
+
     }
 
-    void postOrder(int x) {
+    public void back(int x) {
         if(tree[x].left == -1 && tree[x].right == -1) {
-            System.out.print(x +" ");
+            System.out.print(x + " ");
         } else {
             if(tree[x].left != -1) {
-                postOrder(tree[x].left);
+                back(tree[x].left);
             }
+
+
+
             if(tree[x].right != -1) {
-                postOrder(tree[x].right);
+                back(tree[x].right);
             }
-            System.out.print(x +" ");
+
+            System.out.print(x+ " ");
         }
+
     }
+
+
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         int n = Integer.parseInt(sc.nextLine());
-
         String[][] strArr = new String[n][3];
+        PrintVisitTree2 m = new PrintVisitTree2();
+        Tree4[] tree = new Tree4[n+1];
+        for(int i=0; i<n; i++) {
+            tree[i] = new Tree4();
+        }
 
         for(int i=0; i<n; i++) {
             strArr[i] = sc.nextLine().split(" ");
-        }
-
-
-        Tree[] tree = new Tree[1000];
-        for(int i=0; i<1000; i++) {
-            tree[i] = new Tree();
-        }
-        for(int i=0; i<n; i++) {
             tree[Integer.parseInt(strArr[i][0])].left = Integer.parseInt(strArr[i][1]);
             tree[Integer.parseInt(strArr[i][0])].right = Integer.parseInt(strArr[i][2]);
         }
 
-        PrintVisitTree m = new PrintVisitTree();
         m.tree = tree;
-        m.preOrder(0);
+
+
+        m.front(0);
         System.out.println();
-        m.inOrder(0);
+        m.middle(0);
         System.out.println();
-        m.postOrder(0);
+        m.back(0);
+
+
+
     }
 }
+// 전위순회: 0 1 3 4 2 5
+// 중위순회: 3 1 4 0 2 5
+// 후위순회: 3 4 1 5 2 0
