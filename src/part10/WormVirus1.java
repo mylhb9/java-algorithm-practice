@@ -8,7 +8,7 @@ import java.util.*;
 // 네트워크 상에서 직접 연결돼 있는 컴퓨터 쌍의 수 M 이 주어진다. 이어서 한 줄에 한 쌍 네트워크 상에서 직접 연결돼 있는 컴퓨터의 번호쌍이
 // 주어진다
 // 출력: 1번 컴퓨터가 웜 바이러스에 걸리면, 이를 통해 웜 바이러스에 걸리게 되는 컴퓨터의 수를 출력한다.
-public class WormVirus {
+public class WormVirus1 {
     Map<Integer, List<Integer>> graph;
     boolean[] visited;
     int count = 0;
@@ -40,7 +40,7 @@ public class WormVirus {
             graph.get(Integer.parseInt(inputArr[i][0])).add(Integer.parseInt(inputArr[i][1]));
             graph.get(Integer.parseInt(inputArr[i][1])).add(Integer.parseInt(inputArr[i][0]));
         }
-        WormVirus m = new WormVirus();
+        WormVirus1 m = new WormVirus1();
         m.visited = new boolean[101];
         Arrays.fill(m.visited, false);
         m.graph = graph;
