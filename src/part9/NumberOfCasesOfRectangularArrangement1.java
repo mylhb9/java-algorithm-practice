@@ -13,7 +13,7 @@ import java.util.Scanner;
 // 오른쪽 블록을 기준으로 세워져 있는 경우와 누워져 있는 경우를 나누어 생각한다.
 // 세워져 있는 경우 현재 i 번째 경우의 수에서 i-1 경우의 수라고 볼 수 있으며
 // 누워져 있는 경우 i-2 경우의 수라고 볼 수 있다.
-public class NumberOfCasesOfRectangularArrangement {
+public class NumberOfCasesOfRectangularArrangement1 {
     Long[] remem;
     public long numcases(int x) {
         if(x == 1) {
@@ -33,7 +33,7 @@ public class NumberOfCasesOfRectangularArrangement {
         Scanner sc = new Scanner(System.in);
 
         int N = sc.nextInt();
-        NumberOfCasesOfRectangularArrangement m = new NumberOfCasesOfRectangularArrangement();
+        NumberOfCasesOfRectangularArrangement1 m = new NumberOfCasesOfRectangularArrangement1();
         m.remem = new Long[10000];
         System.out.println(m.numcases(N));
     }
