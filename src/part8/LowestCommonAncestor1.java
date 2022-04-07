@@ -9,7 +9,7 @@ class Tree1 {
     int parent;
 }
 
-public class LowestCommonAncestor {
+public class LowestCommonAncestor1 {
     Tree1[] tree = new Tree1[1000];
     List<Integer> parentList = new ArrayList<>();
     boolean[] check = new boolean[1000];
@@ -42,7 +42,7 @@ public class LowestCommonAncestor {
             tree[Integer.parseInt(inputArr[i][1])].parent = Integer.parseInt(inputArr[i][0]);
         }
 
-        LowestCommonAncestor m = new LowestCommonAncestor();
+        LowestCommonAncestor1 m = new LowestCommonAncestor1();
         m.tree = tree;
         Arrays.fill(m.check, false);
 
