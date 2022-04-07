@@ -5,7 +5,7 @@ import java.util.Scanner;
 // 문제: 숫자 1, 2, 3 을 이용하여 숫자 N을 만드는 경우의 수를 출력하는 프로그램을 작성
 // 경우의 수를 1000007로 나눈 나머지를 출력한다.
 // N은 1이상 100000이하의 범위를 갖는다
-public class MakeNum {
+public class MakeNum1 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
