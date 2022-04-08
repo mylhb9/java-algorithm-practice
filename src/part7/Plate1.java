@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 
-public class Main {
+public class Plate1 {
     public static void main(String[] args) {
         String alphabet = "zyxwvutsrqponmlkjihgfedcba";
         char[] alphabetArr = alphabet.toCharArray();
