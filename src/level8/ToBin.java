@@ -13,15 +13,14 @@ public class ToBin {
     Integer[] notes;
     Integer[] checks;
     public void getResult(int x) {
-        if(x >= n) {
+        if(checks[1] > k) {
+            return;
+        }
+        if(x == n) {
             if(checks[1] == k) {
                 StringBuilder sb = new StringBuilder();
-                for(int i=0; i<notes.length; i++) {
-                    if(notes[i] != null) {
-                        sb.append(notes[i]);
-                    } else {
-                        break;
-                    }
+                for(int i=0; i<n; i++) {
+                    sb.append(notes[i]);
                 }
                 System.out.println(sb);
             }
@@ -45,7 +44,7 @@ public class ToBin {
         ToBin m = new ToBin();
         m.n = n;
         m.k = k;
-        m.notes = new Integer[31];
+        m.notes = new Integer[n+1];
         m.checks = new Integer[2];
         Arrays.fill(m.checks, 0);
         m.getResult(0);
