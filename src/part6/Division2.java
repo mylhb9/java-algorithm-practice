@@ -3,7 +3,7 @@ package part6;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Main {
+public class Division2 {
     int n;
     boolean[] visited;
     Integer[] arr;
@@ -42,7 +42,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
 
-        Main m = new Main();
+        Division2 m = new Division2();
         m.n = n;
         m.visited = new boolean[21];
         Arrays.fill(m.visited, false);
