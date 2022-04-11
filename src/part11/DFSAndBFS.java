@@ -55,6 +55,10 @@ public class DFSAndBFS {
             graph.get(Integer.parseInt(inputArr[i][1])).add(Integer.parseInt(inputArr[i][0]));
         }
 
+        for(int i=0; i<N; i++) {
+            Collections.sort(graph.get(i));
+        }
+
         DFSAndBFS m = new DFSAndBFS();
         m.check = new boolean[2000];
         Arrays.fill(m.check, false);
