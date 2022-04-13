@@ -11,12 +11,13 @@ class Axis1 {
     int y;
 }
 
-public class Main {
+public class MazeEscape {
     boolean[][] check = new boolean[1005][1005];
     Queue<Axis1> queue = new LinkedList<>();
     Integer[] dx = {1, -1, 0, 0};
     Integer[] dy = {0, 0, 1, -1};
     Integer[][] map = new Integer[1005][1005];
+    int n, mm;
 
     public void BFS(int x, int y, Integer[][] answer) {
         check[x][y] = true;
@@ -32,13 +33,15 @@ public class Main {
                 int xx = currentX+dx[i];
                 int yy = currentY+dy[i];
 
-                if(map[xx][yy] == 0 && !check[xx][yy]) {
+                if(xx<=n && yy<= mm && xx>=1 && yy>=1 && !check[xx][yy]) {
                     check[xx][yy] = true;
                     answer[xx][yy] = answer[currentX][currentY] + 1;
-                    Axis1 newAxis = new Axis1();
-                    newAxis.x = xx;
-                    newAxis.y = yy;
-                    queue.offer(newAxis);
+                    if(map[xx][yy] == 0) {
+                        Axis1 newAxis = new Axis1();
+                        newAxis.x = xx;
+                        newAxis.y = yy;
+                        queue.offer(newAxis);
+                    }
                 }
             }
         }
@@ -68,8 +71,10 @@ public class Main {
             }
         }
 
-        Main m = new Main();
+        MazeEscape m = new MazeEscape();
         m.map = map;
+        m.mm = M;
+        m.n = N;
         Integer[][] answer1 = new Integer[1005][1005];
         for(int i=0; i<N+2; i++) {
             for(int j=0; j<M+2; j++) {
@@ -92,19 +97,21 @@ public class Main {
         Integer[][] answer = new Integer[1005][1005];
         for(int i=1; i<N+1; i++) {
             for(int j=1; j<M+1; j++) {
-                if(map[i][j] == 1) {
-
-                }
+                answer[i][j] = answer1[i][j] + answer2[i][j];
             }
         }
 
 // 출력: 목수가 (N-1, 0) 에서 출발하여 (0, M-1) 까지 이동하는데,
 // 필요한 최단거리를 출력한다. 목수는 미로를 항상 탈출할 수 없다고 가정한다.
+        int min = 1000000;
         for(int i=0; i<N+2; i++) {
             for(int j=0; j<M+2; j++) {
-                System.out.print(answer[i][j] + " ");
+                if(answer1[i][j] != 0 && answer2[i][j] != 0) {
+                    min = Math.min(min, answer[i][j]);
+                }
             }
-            System.out.println();
         }
+        System.out.println(min);
+
     }
 }
