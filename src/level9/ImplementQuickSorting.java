@@ -7,6 +7,8 @@ import java.util.Scanner;
 // 출력: 퀵정렬을 이용하여 숫자를 오름차순으로 정렬한 결과를 출력
 public class ImplementQuickSorting {
     int n;
+    static Integer[] leftResult = new Integer[1000001];
+    static Integer[] rightResult = new Integer[1000001];
     public int leftJudge(int pivot, Integer[] arr, Integer[] result, int start, int end) {
         int idx = 0;
         for(int i=start; i<=end; i++) {
@@ -34,9 +36,9 @@ public class ImplementQuickSorting {
             return;
         } else {
             int pivot = arr[start];
-            Integer[] leftResult = new Integer[n+1];
+
             int leftLength = leftJudge(pivot, arr, leftResult,start+1, end);
-            Integer[] rightResult = new Integer[n+1];
+
             int rightLength = rightJudge(pivot, arr, rightResult,start+1, end);
 
             for(int i=start; i<start+leftLength; i++) {
