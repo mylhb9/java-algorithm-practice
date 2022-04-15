@@ -13,12 +13,7 @@ import java.util.*;
 // 넷째 줄에는 윤성이가 숫자 박스에 있는지 아닌지를 구해야 할 M(1,000,000 이하의 정수)개의 숫자가 주어진다.
 
 public class NumberBox1 {
-    Map<Integer, Boolean> checks = new HashMap<>();
     public int binarySearch(Integer[] arr, int start, int end, int value) {
-        if(checks.get(value) != null) {
-            return 1;
-        }
-
         if(start > end) {
             return -1;
         } else if(start == end) {
@@ -45,21 +40,16 @@ public class NumberBox1 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        int N = Integer.parseInt(sc.nextLine());
-        String[] strBoxArr = sc.nextLine().split(" ");
-        Integer[] boxArr = new Integer[N];
-        int M = Integer.parseInt(sc.nextLine());
-        String[] strAnswerArr = sc.nextLine().split(" ");
-        Integer[] answerArr = new Integer[M];
-
         NumberBox1 m = new NumberBox1();
+        int N = sc.nextInt();
+        Integer[] boxArr = new Integer[N];
         for(int i=0; i<N; i++) {
-            boxArr[i] = Integer.parseInt(strBoxArr[i]);
-            m.checks.put(boxArr[i], true);
+            boxArr[i] = sc.nextInt();
         }
-
+        int M = sc.nextInt();
+        Integer[] answerArr = new Integer[M];
         for(int i=0; i<M; i++) {
-            answerArr[i] = Integer.parseInt(strAnswerArr[i]);
+            answerArr[i] = sc.nextInt();
         }
 
         Arrays.sort(boxArr);
@@ -70,5 +60,7 @@ public class NumberBox1 {
                 System.out.println(1);
             }
         }
+
+        sc.close();
     }
 }
