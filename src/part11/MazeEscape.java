@@ -84,7 +84,13 @@ public class MazeEscape {
         }
 
         m.BFS(N, 1, answer1);
-
+        for(int i=0; i<N+2; i++) {
+            for(int j=0; j<M+2; j++) {
+                System.out.print(answer1[i][j] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
         Integer[][] answer2 = new Integer[1005][1005];
         for(int i=0; i<N+2; i++) {
             for(int j=0; j<M+2; j++) {
@@ -94,11 +100,23 @@ public class MazeEscape {
         }
 
         m.BFS(1, M, answer2);
+        for(int i=0; i<N+2; i++) {
+            for(int j=0; j<M+2; j++) {
+                System.out.print(answer2[i][j] + " ");
+            }
+            System.out.println();
+        }
         Integer[][] answer = new Integer[1005][1005];
         for(int i=1; i<N+1; i++) {
             for(int j=1; j<M+1; j++) {
                 answer[i][j] = answer1[i][j] + answer2[i][j];
             }
+        }
+        for(int i=0; i<N+2; i++) {
+            for(int j=0; j<M+2; j++) {
+                System.out.print(answer[i][j] + " ");
+            }
+            System.out.println();
         }
 
 // 출력: 목수가 (N-1, 0) 에서 출발하여 (0, M-1) 까지 이동하는데,
