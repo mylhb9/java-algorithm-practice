@@ -9,10 +9,7 @@ package part12;
 // N 개의 용액들의 특성값은 모두 다름
 // 산성 용액 또는 알칼리성 용액만으로 입력이 주어지는 경우도 있음
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 // 출력: 0에 가장 가까운 용액을 만들어내는 두 용액의 특성값을 출력한다.
 // 0에 가장 가까운 용액을 만들어내는 경우가 두 개 이상일 경우에 특성값의 최솟값이 가장 작은 숫자를 출력
@@ -30,6 +27,7 @@ public class TwoSolutions {
         List<Integer> bList = new ArrayList<>();
         Arrays.sort(arr);
         // -99 -2 1 4 98
+        //            se
         int min = Integer.MAX_VALUE;
         int count = 0;
         int idx = 0;
@@ -39,18 +37,14 @@ public class TwoSolutions {
             int end = N;
             while(start + 1 < end) {
                 int mid = (start + end) / 2;
-
-                if(arr[mid] < - a) {
+                if(Math.abs(a+arr[start])>=Math.abs(a+arr[mid])) {
                     start = mid;
                 } else {
                     end = mid;
                 }
             }
-
             aList.add(a);
-            System.out.println(a);
             bList.add(arr[start]);
-            System.out.println(arr[start]);
             if(min > Math.abs(a+arr[start])) {
                 min = Math.abs(a+arr[start]);
                 idx = count;
