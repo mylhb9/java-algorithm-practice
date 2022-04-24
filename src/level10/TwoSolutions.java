@@ -17,7 +17,7 @@ package level10;
 
 import java.util.*;
 
-public class Main {
+public class TwoSolutions {
     Map<Integer, Integer> myMap = new HashMap<>();
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -32,7 +32,7 @@ public class Main {
         Arrays.sort(arr);
         // -99 -2 1 4 98
         //  1   2 3 4 5
-        Main m = new Main();
+        TwoSolutions m = new TwoSolutions();
         for(int i=0; i<N; i++) {
             int a = arr[i];
             int start = i+1;
