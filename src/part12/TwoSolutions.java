@@ -39,7 +39,7 @@ public class TwoSolutions {
             int end = N;
             while(start + 1 < end) {
                 int mid = (start + end) / 2;
-                // 조건이 헷갈림
+
                 if(arr[mid] < - a) {
                     start = mid;
                 } else {
