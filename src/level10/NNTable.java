@@ -42,21 +42,18 @@ public class NNTable {
 
         NNTable m = new NNTable();
         m.N = N;
-// 1 2 2 3 3 4 6 6 9
+
         long start = 1;
-        long end = N*N+1;
+        long end = 1000000000;
         while(start + 1 < end) {
             long mid = (start + end) / 2;
             long midOrder = m.getOrder(mid);
-
             if(midOrder <= K) {
                 start = mid;
             } else {
                 end = mid;
             }
         }
-
-
         System.out.println(start);
 
     }
