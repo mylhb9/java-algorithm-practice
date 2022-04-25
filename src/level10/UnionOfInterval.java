@@ -64,7 +64,7 @@ public class UnionOfInterval {
         m.n = n;
         m.arr = arr;
         long start = 0;
-        long end = length;
+        long end = 1000000001;
         while(start + 1 < end) {
             long mid = (start + end) / 2;
             long midOrder = m.getCount(mid);
