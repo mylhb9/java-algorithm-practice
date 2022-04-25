@@ -15,40 +15,57 @@ package level10;
 // 두 용액은 오름차순으로 출력한다. 0에 가장 가까운 용액을 만들어 내는 경우의 수가 2개 이상인 경우에는
 // 특성값의 최솟값이 가장 작은 숫자를 출력한다.
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Scanner;
 
 public class TwoSolutions {
-    Map<Integer, Integer> myMap = new HashMap<>();
+    int N, left, right;
+    int[] arr;
+    int result = 1000000001;
+    public void getNum(int x) {
+        int start = 0;
+        int end = N;
+
+        while(start+1<end) {
+            int mid = (start + end) / 2;
+            int cal = x + arr[mid];
+
+            if(cal < 0) {
+                cal = Math.abs(cal);
+            }
+            if(result > cal && x != arr[mid]) {
+                result = cal;
+                left = x;
+                right = arr[mid];
+            }
+
+            if(cal == 0) {
+                return;
+            } else if(x+arr[mid] < 0) {
+                start = mid;
+            } else if(x+arr[mid] > 0) {
+                end = mid;
+            }
+        }
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         int N = sc.nextInt();
         int[] arr = new int[N];
-        for (int i = 0; i < N; i++) {
+        for(int i=0; i<N; i++) {
             arr[i] = sc.nextInt();
         }
 
-        // 음수에서 양수로 바뀌는 값을 기준으로 잡는다
         Arrays.sort(arr);
-        // -99 -2 1 4 98
-        //  1   2 3 4 5
         TwoSolutions m = new TwoSolutions();
+        m.arr = arr;
+        m.N = N;
         for(int i=0; i<N; i++) {
-            int a = arr[i];
-            int start = i+1;
-            int end = N;
-            while(start+1 < end) {
-                int mid = (start + end) / 2;
-                if(a + arr[mid] < 0) {
-                    start = mid;
-                } else {
-                    end = mid;
-                }
-            }
-
-            m.myMap.put(a, start-1);
+            m.getNum(arr[i]);
         }
+        System.out.println(m.left+ " " + m.right);
 
-        System.out.println(m.myMap);
     }
 }

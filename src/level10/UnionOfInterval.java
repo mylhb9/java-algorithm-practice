@@ -52,11 +52,9 @@ public class UnionOfInterval {
 
 
         long[][] arr = new long[n][2];
-        long length = 0;
         for(int i=0; i<n; i++) {
             arr[i][0] = sc.nextLong();
             arr[i][1] = sc.nextLong();
-            length += (arr[i][1] - arr[i][0] + 1);
         }
 
         long input = sc.nextLong();
