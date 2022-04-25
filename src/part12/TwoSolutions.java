@@ -27,30 +27,33 @@ public class TwoSolutions {
         List<Integer> bList = new ArrayList<>();
         Arrays.sort(arr);
         // -99 -2 1 4 98
-        //            se
+        //      s     e
+        // 0    1 2 3 4
         int min = Integer.MAX_VALUE;
         int count = 0;
         int idx = 0;
         for(int i=0; i<N-1; i++) {
             int a = arr[i];
             int start = i+1;
-            int end = N;
+            int end = N-1;
             while(start + 1 < end) {
                 int mid = (start + end) / 2;
-                if(Math.abs(a+arr[start])>=Math.abs(a+arr[mid])) {
+                if(arr[mid] < - a) {
                     start = mid;
                 } else {
                     end = mid;
                 }
             }
-            aList.add(a);
-            bList.add(arr[start]);
+            if(Math.abs(a+arr[start]) > Math.abs(a+arr[end])) {
+                start = end;
+            }
             if(min > Math.abs(a+arr[start])) {
                 min = Math.abs(a+arr[start]);
                 idx = count;
             }
             count++;
-
+            aList.add(a);
+            bList.add(arr[start]);
         }
 
         System.out.println(aList.get(idx) + " " + bList.get(idx));
