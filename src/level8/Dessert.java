@@ -6,22 +6,25 @@ import java.util.Scanner;
 // 문제: N(1~15)마리의 소들을 순서대로 세워놓은 후 +, -, . 을 배치해서 최종 결과가 0이 되도록 한다.
 // . 은 공백을 의미한다.
 public class Dessert {
-    char[] strArr = {'+', '-' ,'.'};
+    String[] strArr = {"+", "-" , "."};
     int N;
     int[] arr;
-    char[] oper = new char[N];
+    String[] oper;
+    int count = 0;
 
     public boolean getSum() {
         int init = arr[0];
         for(int i=0; i<N-1; i++) {
-            if(oper[i]==('+')) {
+            if(oper[i].equals("+")) {
                 init += arr[i+1];
-            } else if(oper[i]==('-')) {
+            } else if(oper[i].equals("-")) {
                 init -= arr[i+1];
             } else {
                 if(i!=0) {
-                    if(oper[i-1]==('+')) {
+                    if(oper[i-1].equals("+")) {
                         init = init - arr[i] + 10 * arr[i] + arr[i+1];
+                    } else if(oper[i-1].equals(".")) {
+                        init = init - (arr[i-1]*10+arr[i]) + (100*arr[i-1]+10*arr[i]+arr[i+1]);
                     } else {
                         init = init + arr[i] -(10 * arr[i] + arr[i+1]);
                     }
@@ -38,14 +41,20 @@ public class Dessert {
     }
 
     public void getResult(int x) {
+        boolean interval = false;
         if(x >= N-1) {
             for(int i=0; i<N; i++) {
                 if(getSum()) {
-                    if(i == 0) {
-                        System.out.print(arr[i] + oper[i+1]);
-                    } else {
-                        System.out.print(arr[i+1] + oper[i+2]);
+                    interval = true;
+                    if(count<20) {
+                        System.out.print(arr[i] + oper[i]);
                     }
+                }
+            }
+            if(interval) {
+                count++;
+                if(count<=20) {
+                    System.out.println();
                 }
             }
         } else {
@@ -55,6 +64,7 @@ public class Dessert {
             }
         }
     }
+// 12 - 3 -4 + 56
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
@@ -65,7 +75,10 @@ public class Dessert {
         Dessert m = new Dessert();
         m.N = N;
         m.arr = arr;
-        Arrays.fill(m.oper, '0');
+        String[] oper = new String[N];
+        m.oper = oper;
+        Arrays.fill(m.oper, "");
         m.getResult(0);
+        System.out.println(m.count);
     }
 }
