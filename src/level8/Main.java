@@ -5,34 +5,47 @@ import java.util.Scanner;
 
 // 문제: N(1~15)마리의 소들을 순서대로 세워놓은 후 +, -, . 을 배치해서 최종 결과가 0이 되도록 한다.
 // . 은 공백을 의미한다.
-public class Dessert {
+public class Main {
     String[] strArr = {"+", "-" , "."};
     int N;
     int[] arr;
+    int[] arr2;
+
     String[] oper;
     int count = 0;
 
     public boolean getSum() {
-        int init = arr[0];
+        for(int i=1; i<=N; i++) {
+            arr2[i-1] = i;
+        }
         for(int i=0; i<N-1; i++) {
-            if(oper[i].equals("+")) {
-                init += arr[i+1];
-            } else if(oper[i].equals("-")) {
-                init -= arr[i+1];
-            } else {
-                if(i!=0) {
-                    if(oper[i-1].equals("+")) {
-                        init = init - arr[i] + 10 * arr[i] + arr[i+1];
-                    } else if(oper[i-1].equals(".")) {
-                        init = init - (arr[i-1]*10+arr[i]) + (100*arr[i-1]+10*arr[i]+arr[i+1]);
-                    } else {
-                        init = init + arr[i] -(10 * arr[i] + arr[i+1]);
+            if(oper[i].equals(".")) {
+                for(int j=i; j>=0; j--) {
+                    if(arr2[j]!=0) {
+                        if(arr2[i+1]<10) {
+                            arr2[j] = arr2[j]*10 + arr2[i+1];
+                            arr2[i+1] = 0;
+                        } else {
+                            arr2[j] = arr2[j]*100 + arr2[i+1];
+                            arr2[i+1] = 0;
+                        }
+                        break;
                     }
-                } else {
-                    init = 10*init + arr[1];
                 }
             }
         }
+
+        int init = arr2[0];
+        for(int i=0; i<N-1; i++) {
+            if(oper[i].equals("+")) {
+                init += arr2[i+1];
+            } else if(oper[i].equals("-")) {
+                init -= arr2[i+1];
+            } else {
+                continue;
+            }
+        }
+
         if(init == 0) {
             return true;
         } else {
@@ -47,7 +60,7 @@ public class Dessert {
                 if(getSum()) {
                     interval = true;
                     if(count<20) {
-                        System.out.print(arr[i] + oper[i]);
+                        System.out.print(arr[i] +" "+ oper[i]+" ");
                     }
                 }
             }
@@ -72,9 +85,10 @@ public class Dessert {
         for(int i=1; i<=N; i++) {
             arr[i-1] = i;
         }
-        Dessert m = new Dessert();
+        Main m = new Main();
         m.N = N;
         m.arr = arr;
+        m.arr2 = new int[N];
         String[] oper = new String[N];
         m.oper = oper;
         Arrays.fill(m.oper, "");
