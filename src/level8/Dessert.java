@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 // 문제: N(1~15)마리의 소들을 순서대로 세워놓은 후 +, -, . 을 배치해서 최종 결과가 0이 되도록 한다.
 // . 은 공백을 의미한다.
-public class Main {
+public class Dessert {
     String[] strArr = {"+", "-" , "."};
     int N;
     int[] arr;
@@ -85,7 +85,7 @@ public class Main {
         for(int i=1; i<=N; i++) {
             arr[i-1] = i;
         }
-        Main m = new Main();
+        Dessert m = new Dessert();
         m.N = N;
         m.arr = arr;
         m.arr2 = new int[N];
