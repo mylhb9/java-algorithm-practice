@@ -12,47 +12,99 @@ package level11;
 // 출력: 접시를 꺼내는 것이 가능한 경우 push, pop의 순서를 출력
 // 이것이 불가능하다면 impossible 을 출력한다
 
-import java.util.Scanner;
-import java.util.Stack;
+// 도중에 cbaedfg
+import java.util.*;
 
 public class Plate {
+    static List<String> answerList = new ArrayList<>();
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         char[] resultArr = sc.nextLine().toCharArray();
         int length = resultArr.length;
 
-        char[] inputArr = new char[length];
-        for(int i=0; i<length; i++) {
-            inputArr[i] = (char) ('a' + i);
+        Stack<Character> inputStack = new Stack<>();
+        for(int i=length-1; i>=0; i--) {
+            inputStack.push((char) ('a' + i));
         }
         // resultArr : d a b c
         // output : d
         // stack : a b c
         // inputArr : a b c d
         Stack<Character> stack = new Stack<>();
-        for(int j=0; j<length; j++) {
-            if(inputArr[j] != resultArr[0]) {
-                stack.push(inputArr[j]);
+        for(int i=0; i<length; i++) {
+            if(inputStack.peek() != resultArr[0]) {
+                stack.push(inputStack.pop());
+                answerList.add("push");
             } else{
-                stack.push(inputArr[j]);
-                System.out.print(stack.pop());
+                stack.push(inputStack.pop());
+                answerList.add("push");
+                stack.pop();
+                answerList.add("pop");
                 break;
             }
         }
-        while(!stack.empty()) {
-            for(int i=1; i<length; i++) {
-                if(!stack.empty()) {
-                    if(resultArr[i] != stack.peek()) {
+
+        for(int i=1; i<length; i++) {
+            if(!stack.empty()) {
+                if(resultArr[i] == stack.peek()) {
+                    stack.pop();
+                    answerList.add("pop");
+                } else { // 스택이 비어있지 않고
+                    if(!inputStack.empty()) {
+                        if(resultArr[i] <= inputStack.peek()) {
+                            stack.push(inputStack.pop());
+                            answerList.add("push");
+                            if(stack.peek() == resultArr[i]) {
+                                stack.pop();
+                                answerList.add("pop");
+                            }
+                        } else {
+                            System.out.println("impossible");
+                            return;
+                        }
+                    } else { // inputStack 이 비어있고
                         System.out.println("impossible");
                         return;
+                    }
+                }
+            } else {
+                if(!inputStack.empty()) {
+                    if(resultArr[i] <= inputStack.peek()) {
+                        stack.push(inputStack.pop());
+                        answerList.add("push");
+
+                        if(stack.peek() == resultArr[i]) {
+                            stack.pop();
+                            answerList.add("pop");
+                        } else {
+                            System.out.println("impossible");
+                            return;
+                        }
+
                     } else {
-                        System.out.print(stack.pop());
+                        for(int j=0; j<length; j++) {
+                            if(!inputStack.empty()) {
+                                if(inputStack.peek() != resultArr[i]) {
+                                    stack.push(inputStack.pop());
+                                    answerList.add("push");
+                                } else{
+                                    stack.push(inputStack.pop());
+                                    answerList.add("push");
+                                    stack.pop();
+                                    answerList.add("pop");
+                                    break;
+                                }
+                            }
+                        }
                     }
                 } else {
-
+                    System.out.println("impossible");
+                    return;
                 }
             }
         }
-
+        for(int i=0; i<answerList.size(); i++) {
+            System.out.println(answerList.get(i));
+        }
     }
 }
