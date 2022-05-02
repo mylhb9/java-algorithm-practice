@@ -25,27 +25,23 @@ public class Castle {
         for(int i=0; i<N; i++) {
             arr[i] = sc.nextInt();
         }
-        // 6 9 5 7 4
-        // 1 2 3 4 5
 
         int idx = 0;
         for(int i=0; i<N; i++) {
-            // pivot = 4
             while(!stack.empty() && arr[stack.peek()] < arr[i]) {
                 stack.pop();
+            }
+            if(stack.empty()) {
+                idx = 0;
             }
             if(!stack.empty() && arr[stack.peek()] >= arr[i]) {
                 idx = stack.peek()+1;
             }
 
-            if(stack.empty()) {
-                idx = 0;
-            }
-
             stack.push(i);
             lengthList.add(idx);
-        }
 
+        }
 
         for(int i=0; i<lengthList.size(); i++) {
             System.out.print(lengthList.get(i) + " ");
