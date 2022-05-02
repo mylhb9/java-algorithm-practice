@@ -10,10 +10,7 @@ package level11;
 // 입력: 첫째 줄에 탑의 수를 나타내는 정수 N이 주어짐. (1<=N<=500,000)
 // 둘째 줄에는 N개의 탑들의 높이가 직선상에 놓인 순서대로 하나의 빈칸을 사이에 두고 주어짐. 탑들의 높이는 (1이상 100,000,000이하)
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Stack;
+import java.util.*;
 
 // 출력: 주어진 탑들의 순서대로 각각의 탑들에서 발사한 신호를 수신한 탑들의 번호를 출력, 수신 탑이 존재하지 않으면 0 출력
 public class Castle {
@@ -21,32 +18,36 @@ public class Castle {
         Stack<Integer> stack = new Stack<>();
         Scanner sc = new Scanner(System.in);
 
+        List<Integer> lengthList = new ArrayList<>();
         int N = sc.nextInt();
+
         int[] arr = new int[N];
         for(int i=0; i<N; i++) {
             arr[i] = sc.nextInt();
-            stack.push(arr[i]);
+        }
+        // 6 9 5 7 4
+        // 1 2 3 4 5
+
+        int idx = 0;
+        for(int i=0; i<N; i++) {
+            // pivot = 4
+            while(!stack.empty() && arr[stack.peek()] < arr[i]) {
+                stack.pop();
+            }
+            if(!stack.empty() && arr[stack.peek()] >= arr[i]) {
+                idx = stack.peek()+1;
+            }
+
+            if(stack.empty()) {
+                idx = 0;
+            }
+
+            stack.push(i);
+            lengthList.add(idx);
         }
 
-        List<Integer> lengthList = new ArrayList<>();
 
-        while(!stack.empty()) {
-            int temp = stack.pop();
-            int size = stack.size();
-            boolean check = false;
-            for(int i=size-1; i>=0; i--) {
-                if(!stack.empty() && temp < arr[i]) {
-                    check = true;
-                    lengthList.add(i+1);
-                    break;
-                }
-            }
-            if(!check) {
-                lengthList.add(0);
-            }
-        }
-
-        for(int i=N-1; i>=0; i--) {
+        for(int i=0; i<lengthList.size(); i++) {
             System.out.print(lengthList.get(i) + " ");
         }
     }
