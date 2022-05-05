@@ -2,7 +2,7 @@ package bonuspart;
 
 import java.util.Scanner;
 
-public class Main {
+public class MergeSorting2 {
     int[] temp = new int[100001];
     public void merge(int[] arr, int s1, int e1, int s2, int e2) {
         int p = s1;
@@ -56,7 +56,7 @@ public class Main {
             arr[i] = sc.nextInt();
         }
 
-        Main m = new Main();
+        MergeSorting2 m = new MergeSorting2();
         m.mergeSort(arr, 0, n-1);
         for(int i=0; i<arr.length; i++) {
             System.out.print(arr[i] + " ");
