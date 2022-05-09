@@ -2,11 +2,10 @@ package level14;
 
 import java.util.Scanner;
 
-public class Main {
+public class GoodSeq {
     // n=8
     // 0 1 2 3 4 5 6 7
     // 1 2 1 3 1 2 3 1
-
     int N;
     int[] arr = new int[81];
     boolean answer = false;
@@ -48,7 +47,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         int N = sc.nextInt();
-        Main m = new Main();
+        GoodSeq m = new GoodSeq();
         m.N = N;
         m.getSeq(0);
     }
