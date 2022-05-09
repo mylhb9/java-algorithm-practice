@@ -1,12 +1,6 @@
 package level14;
 
-// 문제: 거듭 제곱 구하기L
-// n 과 m 이 주어질 때, n의 m승을 구하는 프로그램을 작성해라
-// 단, n의 m승의 값이 커질 수 있으므로, 정답을 10007로 나눈 나머지를 출력
-
-// 입력: 첫 번째 줄에 숫자 n과 m이 주어진다
-// 출력: 첫째 줄에 n의 m승을 10,007로 나눈 나머지를 출력한다.
-
+import java.math.BigInteger;
 import java.util.Scanner;
 
 public class FindAPower {
@@ -14,17 +8,30 @@ public class FindAPower {
         Scanner sc = new Scanner(System.in);
 
         int n = sc.nextInt();
-        int m = sc.nextInt();
-        int[] arr = new int[1000000];
+        BigInteger m = sc.nextBigInteger();
+        m = m.remainder(BigInteger.valueOf(10006));
 
+        int[] results = new int[10008];
         int result = 1;
-        while(true) {
-            if(result < 10007) {
-
+        results[0] = 0;
+        for(int i=0; i<10006; i++) {
+            result *= n;
+            if(result >= 10007) {
+                result %= 10007;
             }
+            results[i+1] = result;
         }
 
-
+        System.out.println(results[m.intValue()]);
 
     }
 }
+// 7
+// n m    results
+// 3 1 3    3     1
+// 3 2 9    2     2
+// 3 3 27   6     3
+// 3 4 81   4     4
+// 3 5 243  5     5
+// 3 6 729  1     6
+// 3 7 2187 3     1
