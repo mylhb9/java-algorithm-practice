@@ -51,11 +51,13 @@ public class Party {
         Map<Integer, List<Integer>> graph = new HashMap<>();
         Map<Integer, List<Integer>> costs = new HashMap<>();
         Map<Integer, List<Integer>> revGraph = new HashMap<>();
+        Map<Integer, List<Integer>> weights = new HashMap<>();
 
         for(int i=1; i<=N; i++) {
             graph.put(i, new ArrayList<>());
             costs.put(i, new ArrayList<>());
             revGraph.put(i, new ArrayList<>());
+            weights.put(i, new ArrayList<>());
         }
 
         for(int i=0; i<M; i++) {
@@ -65,6 +67,7 @@ public class Party {
             graph.get(a).add(b);
             costs.get(a).add(c);
             revGraph.get(b).add(a);
+            weights.get(b).add(c);
         }
 
         Party m = new Party();
@@ -73,11 +76,18 @@ public class Party {
         m.N = N;
 
 
-        int[] table1 = new int[1001];
-        int[] table2 = new int[1001];
+        int[] table1;
+        int[] table2;
         table1 = m.dijkstra(K);
         m.graph = revGraph;
+        m.costs = weights;
         table2 = m.dijkstra(K);
 
+        int sum = 0;
+        for(int i=1; i<=N; i++) {
+            sum += table1[i];
+            sum += table2[i];
+        }
+        System.out.println(sum);
     }
 }
