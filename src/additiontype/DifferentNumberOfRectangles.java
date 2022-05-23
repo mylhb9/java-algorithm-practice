@@ -24,6 +24,11 @@ public class DifferentNumberOfRectangles {
         // 1 1 1
         // 1 1 3
 
+        // 3  2  10
+        // 3  7   1
+        // 1  10  9
+
+
 
         int Q = sc.nextInt();
         int[][] qArr = new int[Q][4];
@@ -34,11 +39,14 @@ public class DifferentNumberOfRectangles {
             qArr[i][2] = sc.nextInt(); // x2
             qArr[i][3] = sc.nextInt(); // y2
 
+
             for(int j=1; j<=10; j++) {
                 if(checkCountArr[j] == 1) {
                     count++;
                 }
             }
+
+
         }
 
 
