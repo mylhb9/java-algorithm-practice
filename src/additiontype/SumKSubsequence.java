@@ -1,8 +1,6 @@
 package additiontype;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class SumKSubsequence {
     public static void main(String[] args) {
@@ -19,31 +17,29 @@ public class SumKSubsequence {
         for(int i=1; i<=N; i++) {
             arr[i] = sc.nextInt();
             sum+=arr[i];
-            map.put(sum, 0);
         }
         map.put(0, 1);
         for(int i=1; i<=N; i++) {
             accArr[i] += (arr[i] + accArr[i-1]);
-            map.put(accArr[i], map.get(accArr[i])+1);
+            map.put(accArr[i], map.getOrDefault(accArr[i], 0)+1);
             if(K>=0) {
                 if(accArr[i] >= K) {
                     if(accArr[i] == K) {
-                        count+=map.get(K);
+                        count+=map.getOrDefault(K, 0);
                     } else {
-                        count+=map.get(accArr[i]-K);
+                        count+=map.getOrDefault(accArr[i]-K, 0);
                     }
                 }
             } else {
                 if(accArr[i] <= K) {
                     if(accArr[i] == K) {
-                        count+=map.get(K);
+                        count+=map.getOrDefault(K, 0);
                     } else {
-                        count+=map.get(accArr[i]-K);
+                        count+=map.getOrDefault(accArr[i]-K, 0);
                     }
                 }
             }
         }
-
         System.out.println(count);
 
         sc.close();
