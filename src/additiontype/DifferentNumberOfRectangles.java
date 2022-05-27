@@ -7,39 +7,33 @@ public class DifferentNumberOfRectangles {
         Scanner sc = new Scanner(System.in);
 
         int N = sc.nextInt();
-        int[][] saveArr= new int[301][301];
         int[][][] arr = new int[301][301][11];
 
         for(int i=0; i<N; i++) {
             for(int j=0; j<N; j++) {
-                saveArr[i][j] = sc.nextInt();
-                if(i==0 || j==0) {
-                    if(i==0 && j==0) {
-
-                    } else if(i == 0) {
-                        for(int k=0; k<10; k++) {
-                            arr[i][j][k] = arr[i][j-1][k];
-                        }
-                    } else {
-                        for(int k=0; k<10; k++) {
-                            arr[i][j][k] = arr[i-1][j][k];
-                        }
+                int a = sc.nextInt();
+                if(i==0 && j==0) {
+                    arr[i][j][a]++;
+                } else if(i==0) {
+                    for(int k=1; k<=10; k++) {
+                        arr[i][j][k] = arr[i][j-1][k];
                     }
-
+                    arr[i][j][a]++;
                 } else {
-                    arr[i][j][saveArr[i-1][j]]++;
-                    for(int k=0; k<10; k++) {
-                        arr[i][j][k] = arr[i][j-1][k] + arr[i-1][j][k];
+                    for(int k=1; k<=10; k++) {
+                        if(j==0) {
+                            arr[i][j][k] = arr[i-1][j][k];
+                        } else {
+                            arr[i][j][k] = arr[i-1][j][k] + arr[i][j-1][k] - arr[i-1][j-1][k];
+                        }
                     }
+                    arr[i][j][a]++;
                 }
-                arr[i][j][saveArr[i][j]]++;
-
             }
         }
 
-        // 0 0 0
-        // 1 1 1
-        // 1 1 3
+
+
 
         // 3  2  10
         // 3  7   1
@@ -49,17 +43,35 @@ public class DifferentNumberOfRectangles {
         int Q = sc.nextInt();
         int[][] answerArr = new int[Q][4];
         for(int i=0; i<Q; i++) {
-            answerArr[i][0]= sc.nextInt();
-            answerArr[i][1]= sc.nextInt();
-            answerArr[i][2]= sc.nextInt();
-            answerArr[i][3]= sc.nextInt();
+            answerArr[i][0]= sc.nextInt()-1;
+            answerArr[i][1]= sc.nextInt()-1;
+            answerArr[i][2]= sc.nextInt()-1;
+            answerArr[i][3]= sc.nextInt()-1;
         }
 
         for(int i=0; i<Q; i++) {
-            for(int j=0; j<10; j++) {
-
+            int total = (answerArr[i][2]-answerArr[i][0]+1)*(answerArr[i][3]-answerArr[i][1]+1);
+            int count = 0;
+            for(int j=1; j<=10; j++) {
+                if(answerArr[i][0] == 0 && answerArr[i][1] == 0) {
+                    if(arr[answerArr[i][2]][answerArr[i][3]][j] >= 1) {
+                        count += 1;
+                    }
+                } else if(answerArr[i][0] == 0) {
+                    if(arr[answerArr[i][2]][answerArr[i][3]][j]  - arr[answerArr[i][2]][answerArr[i][1]-1][j] >= 1) {
+                        count += 1;
+                    }
+                } else if(answerArr[i][1] == 0) {
+                    if(arr[answerArr[i][2]][answerArr[i][3]][j] - arr[answerArr[i][0]-1][answerArr[i][3]][j] >= 1) {
+                        count += 1;
+                    }
+                } else {
+                    if(arr[answerArr[i][2]][answerArr[i][3]][j] - arr[answerArr[i][0]-1][answerArr[i][3]][j] - arr[answerArr[i][2]][answerArr[i][1]-1][j] + arr[answerArr[i][0]-1][answerArr[i][1]-1][j] >= 1) {
+                        count += 1;
+                    }
+                }
             }
+            System.out.println(count);
         }
-
     }
 }
