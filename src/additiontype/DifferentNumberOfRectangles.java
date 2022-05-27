@@ -7,15 +7,32 @@ public class DifferentNumberOfRectangles {
         Scanner sc = new Scanner(System.in);
 
         int N = sc.nextInt();
+        int[][] saveArr= new int[301][301];
+        int[][][] arr = new int[301][301][11];
 
-//        boolean[] checkArr = new boolean[11];
-        int[] checkCountArr = new int[11];
-        int[][] arr = new int[N][N];
         for(int i=0; i<N; i++) {
-            for (int j = 0; j < N; j++) {
-                int a = sc.nextInt();
-                checkCountArr[a]++;
-                arr[i][j] = checkCountArr[a];
+            for(int j=0; j<N; j++) {
+                saveArr[i][j] = sc.nextInt();
+                if(i==0 || j==0) {
+                    if(i==0 && j==0) {
+
+                    } else if(i == 0) {
+                        for(int k=0; k<10; k++) {
+                            arr[i][j][k] = arr[i][j-1][k];
+                        }
+                    } else {
+                        for(int k=0; k<10; k++) {
+                            arr[i][j][k] = arr[i-1][j][k];
+                        }
+                    }
+
+                } else {
+                    arr[i][j][saveArr[i-1][j]]++;
+                    for(int k=0; k<10; k++) {
+                        arr[i][j][k] = arr[i][j-1][k] + arr[i-1][j][k];
+                    }
+                }
+                arr[i][j][saveArr[i][j]]++;
 
             }
         }
@@ -29,34 +46,20 @@ public class DifferentNumberOfRectangles {
         // 1  10  9
 
 
-
         int Q = sc.nextInt();
-        int[][] qArr = new int[Q][4];
-        int count = 0;
+        int[][] answerArr = new int[Q][4];
         for(int i=0; i<Q; i++) {
-            qArr[i][0] = sc.nextInt(); // x1
-            qArr[i][1] = sc.nextInt(); // y1
-            qArr[i][2] = sc.nextInt(); // x2
-            qArr[i][3] = sc.nextInt(); // y2
-
-
-            for(int j=1; j<=10; j++) {
-                if(checkCountArr[j] == 1) {
-                    count++;
-                }
-            }
-
-
+            answerArr[i][0]= sc.nextInt();
+            answerArr[i][1]= sc.nextInt();
+            answerArr[i][2]= sc.nextInt();
+            answerArr[i][3]= sc.nextInt();
         }
 
+        for(int i=0; i<Q; i++) {
+            for(int j=0; j<10; j++) {
 
-        for(int i=0; i<N; i++) {
-            for(int j=0; j<N; j++) {
-                System.out.print(arr[i][j] + " ");
             }
-            System.out.println();
         }
-
 
     }
 }
