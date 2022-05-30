@@ -2,7 +2,7 @@ package additiontype;
 
 import java.util.Scanner;
 
-public class Main {
+public class Fruits {
     public void getSum() {
 
     }
