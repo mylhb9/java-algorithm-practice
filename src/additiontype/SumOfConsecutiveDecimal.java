@@ -15,11 +15,11 @@ public class SumOfConsecutiveDecimal {
             if(table[i]) {
                 continue;
             }
-            if(i>= Math.sqrt(Integer.MAX_VALUE)) {
-                break;
-            }
+//            if(i>= 4000000) {
+//                break;
+//            }
 
-            for(int j=i*i; j<=4000000; j+=i) {
+            for(int j=2*i; j<=4000000; j+=i) {
                 table[j] = true;
             }
             if(!table[i]) {
