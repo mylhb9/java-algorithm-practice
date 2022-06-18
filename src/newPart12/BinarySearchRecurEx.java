@@ -2,7 +2,7 @@ package newPart12;
 
 import java.util.Scanner;
 
-public class BinarySearchExample {
+public class BinarySearchRecurEx {
 
     public static int binarySearch(int[] arr, int start, int end, int value) {
         // arr의 start부터 end까지 값들 중에서
