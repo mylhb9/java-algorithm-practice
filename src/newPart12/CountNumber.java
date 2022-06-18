@@ -3,7 +3,7 @@ package newPart12;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Main {
+public class CountNumber {
     public static int binarySearchBack(int[] arr, int start, int end, int value) {
         while(start+1<end) {
             int mid = (start + end) / 2;
